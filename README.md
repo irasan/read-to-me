@@ -1,45 +1,65 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Read to me
+This is a web service that allows its users to find the best childrens books, based on reviews and ratings of other users. 
+There are thousands of books out there and while many of them might seem appealing or beautifully illustrated to adults, they are not 
+necessarily insteresting for children. Also people tend to buy books that are famous and popular, leaving a small chance for short run 
+or other great books to be found. That's why this service will gather feedback on books from the point of view of the child. 
 
-Welcome irasan,
+Books are categorised according to 4 age groups:
+1. 0-2 years old: here users will find books with no or very little text as well as first nursery rhymes;
+1. 3-5 years old: beautifully illustrated books with short stories and poems. Cartoon characters and first interests can also 
+be found here;
+1. 6-8 years old: books for children that start reading themselves as well as books with long stories where accent is on the
+text, not the illustrations;
+1. 9-12 years old: this category will contain adventure books and other fascinating stories that promote reading.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+## UX
 
-## Gitpod Reminders
+### Project goals
+The primary goal of the project is to present a collection of favourite children’s books and help users to make easier decisions when 
+purchasing new books. 
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+### Customers' goals
+The main audience for this website consists of yound parents and grandparents who would like to promote reading in their homes.
+Their main goal would be to find great books for children to read, to share their experiences regarding books they've read, as well as
+save money and help other people to do so by preventing from investing in beautiful but not so interesting books.
 
-`python3 -m http.server`
+Customers goals are:
+* find best books according to children’s age group;
+* find best books according to children’s interests;
+* share feedback on books from the point of view of their children;
+* see a list of his/her reviews and ratings;
+* be able to update his/her reviews and ratings;
+* be able to create a list of books to read and update it.
 
-A blue button should appear to click: *Make Public*,
+This website helps the users to meet their needs because: 
+* the goals stated above were taken into consideration during all stages of the development process;
+* users can register their profiles, create reviews on books and rate them;
+* registered users can see a list of their reviews and ratings;
+* registered users can create books-to-read lists;
+* navigation is traditional and intuitive.
 
-Another blue button should appear to click: *Open Browser*.
+### Developer's Goals
+This is a learning project and the main purpose of it's creating is to learn Python and how to connect a database to
+the project. Another very improtant goal is to build a game that will be added to the portfolio. 
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+### User Stories
+As a young parent/grandparent, I want:
+* to cultivate love to books and promote reading for my kids, that's why I need to find the best books;
+* to buy books that are loved by modern children and are not simply a tribute to traditions or best promoted;
+* to create a list of great books and update it when I bought something or am no longer interested;
+* to share my thoughts about books that were read to my children and help other parents to make a decision.
 
-A blue button should appear to click: *Make Public*,
+As a reading child I want:
+* to make use of a service like goodreads.com only for children and by like-minded children;
+* to share my feedback on books and be able to read feedback of other children.
 
-Another blue button should appear to click: *Open Browser*.
+### Wireframes
+After thorough consideration of users' and developer's goals, the following [wireframes](assets/wireframes) were created. 
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Design Choices
 
-## Updates Since The Instructional Video
+#### Fonts
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+#### Icons
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!
+#### Colors and Styling
