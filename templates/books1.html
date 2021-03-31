@@ -1,0 +1,12 @@
+{% extends "books.html" %}
+{% block content %}
+
+    {% for book in books1 %}
+        {{ book.cover }}<br>
+        {{ book.title }}<br>
+        {{ book.author }}<br>
+        {{ book.isbn }}<br>
+        {{ book.category }}<br>
+    {% endfor %}
+
+{% endblock %}

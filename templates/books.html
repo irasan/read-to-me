@@ -6,11 +6,8 @@
     <title>Books</title>
 </head>
 <body>
-    {% for book in books %}
-        {{ book.title }}<br>
-        {{ book.author }}<br>
-        {{ book.isbn }}<br>
-        {{ book.category }}<br>
-    {% endfor %}
+    {% block content %}
+        
+    {% endblock %}
 </body>
 </html>
