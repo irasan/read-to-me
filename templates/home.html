@@ -1,8 +1,66 @@
 {% extends "books.html" %}
 {% block content %}
 
-<div class="container">
+<div>
     <h1 class="center-align deep-orange-text text-accent-3">Books by age groups</h1>
+
+    <div class="row center-align">
+        <div class="col s12 m5 offset-m1">
+            <div class="card-medium">
+                <div class="card-image"> 
+                    <img class="responsive-img" src="static/images/group1.jpg">
+                    <span style="font-size:xx-large" class="card-title">0-2 years old</span>
+                    <a class="btn-floating btn-large pulse waves-effect waves-light green"><i class="fas fa-plus"></i></a>        
+                </div>
+                <div class="card-content">
+                    <p>High contrast and sensory books, first nursery rhymes etc.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m5">
+            <div class="card-medium">
+                <div class="card-image">
+                    <img class="responsive-img" src="static/images/group2.jpg">
+                    <span style="font-size:xx-large" class="card-title">3-5 years old</span>
+                    <a class="btn-floating btn-large pulse waves-effect waves-light orange"><i class="fas fa-plus"></i></a>
+                </div>
+                <div class="card-content">
+                    <p>Beautifully illustrated books with no words, first words, short stories etc.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row center-align">
+        <div class="col s12 m5 offset-m1">
+            <div class="card-medium">
+                <div class="card-image">
+                    <img class="responsive-img" src="static/images/group3.jpg">
+                    <span style="font-size:xx-large" class="card-title">6-8 years old</span>
+                    <a class="btn-floating btn-large pulse waves-effect waves-light red"><i class="fas fa-plus"></i></a>
+                </div>
+                <div class="card-content">
+                    <p>Books for children who start to read on their own, longer stories to be read by caregivers and many more.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m5">
+            <div class="card-medium">
+                <div class="card-image">
+                    <img class="responsive-img" src="static/images/group4.jpg">
+                    <span style="font-size:xx-large" class="card-title">9-12 years old</span>
+                    <a class="btn-floating btn-large pulse waves-effect waves-light purple"><i class="fas fa-plus"></i></a>
+                </div>
+                <div class="card-content">
+                    <p>Interesting books for kids who are confident but lazy readers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="container">
+<h1 class="center-align deep-orange-text text-accent-3">Books by age groups</h1>
     <div class="row center-align">
         <div class="col s10 m5 offset-m1">
             <img class="responsive-img" src="static/images/group1.jpg" alt="Dad and baby">
@@ -24,6 +82,6 @@
             <h3 class="light-blue-text text-darken-3">9-12 years old</h3>
         </div>
     </div>
-</div>
+</div> -->
 
 {% endblock %}
