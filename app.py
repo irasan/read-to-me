@@ -19,8 +19,8 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/display_age_groups")
-def display_age_groups():
+@app.route("/home")
+def home():
     return render_template("home.html")
 
 

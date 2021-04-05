@@ -11,25 +11,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% block styles %}
     {% endblock %}
-    <title>Books</title>
+    <title>Read To Me</title>
 </head>
 <body>
     <header>
         <!-- top navbar -->
         <nav class="nav-extended cyan darken-1">
     <div class="nav-wrapper">
-      <a href="{{ url_for('display_age_groups') }}" class="brand-logo">Read to me</a>
+      <a href="{{ url_for('home') }}" class="brand-logo">Read to me</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
 
       <!-- large screen sidenav -->
       <ul class="right hide-on-med-and-down">
-        <li><a href="{{ url_for('display_age_groups') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="sass.html">Search</a></li>
         <li><a href="badges.html">Add Review</a></li>
         <li><a href="collapsible.html">My Books</a></li>
         <li><a href="mobile.html">Login</a></li>
         <li><a href="mobile.html">Logout</a></li>
-        <li><a href="sass.html">Register</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
       </ul>
     </div>
   </nav>
@@ -37,13 +37,13 @@
   <!-- mobile sidenav -->
   <ul class="sidenav" id="mobile-demo">
       <li><h4 class="center-align cyan-text text-darken 1">Read to me</h4></li>
-        <li><a href="{{ url_for('display_age_groups') }}">Home</a></li>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="sass.html">Search</a></li>
         <li><a href="badges.html">Add Review</a></li>
         <li><a href="collapsible.html">My Books</a></li>
         <li><a href="mobile.html">Login</a></li>
         <li><a href="mobile.html">Logout</a></li>
-        <li><a href="sass.html">Register</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
   </ul>
     </header>
 
