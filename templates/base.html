@@ -26,7 +26,7 @@
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="sass.html">Search</a></li>
         <li><a href="badges.html">Add Review</a></li>
-        <li><a href="collapsible.html">My Books</a></li>
+        <li><a href="{{ url_for('profile', username=session['user']) }}">My Books</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="mobile.html">Logout</a></li>
         <li><a href="{{ url_for('register') }}">Register</a></li>
@@ -40,7 +40,7 @@
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="sass.html">Search</a></li>
         <li><a href="badges.html">Add Review</a></li>
-        <li><a href="collapsible.html">My Books</a></li>
+        <li><a href="{{ url_for('profile', username=session['user']) }}">My Books</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="mobile.html">Logout</a></li>
         <li><a href="{{ url_for('register') }}">Register</a></li>
