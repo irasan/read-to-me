@@ -126,6 +126,7 @@ def logout():
 def add_book():
     if request.method == "POST":
         age = request.form.get("age_group")
+        user = session["user"]
         book = {
             "title": request.form.get("title"),
             "author": request.form.get("author"),
@@ -145,7 +146,7 @@ def add_book():
         else:
             mongo.db.books4.insert_one(book)
         flash("Your Review Successfully Added")
-        return render_template("home.html")
+        return render_template("profile.html", username=user)
 
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
