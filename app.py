@@ -59,12 +59,12 @@ def login():
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
-                existing_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(
-                        request.form.get("username")))
-                    return redirect(url_for(
-                        "profile", username=session["user"]))
+                    existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(
+                    request.form.get("username")))
+                return redirect(url_for(
+                    "profile", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -124,6 +124,29 @@ def logout():
 
 @app.route("/add_book", methods=["GET", "POST"])
 def add_book():
+    if request.method == "POST":
+        age = request.form.get("age_group")
+        book = {
+            "title": request.form.get("title"),
+            "author": request.form.get("author"),
+            "isbn": request.form.get("isbn"),
+            "review": request.form.get("review"),
+            "rating": request.form.get("rating"),
+            "category": request.form.get("category_name"),
+            "created_by": session["user"]
+        }
+
+        if age == "0-2 years":
+            mongo.db.books1.insert_one(book)
+        elif age == "3-5 years":
+            mongo.db.books2.insert_one(book)
+        elif age == "6-8 years":
+            mongo.db.books3.insert_one(book)
+        else:
+            mongo.db.books4.insert_one(book)
+        flash("Your Review Successfully Added")
+        return render_template("home.html")
+
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
     return render_template(

@@ -4,29 +4,34 @@
 <h3 class="purple-text center-align">Add a Review</h3>
 
 <div class="row">
-    <form class="col s12" method="POST" action="">
+    <form class="col s12" method="POST" action="{{ url_for('add_book') }}">
         <div class="row">
+            <!-- book title -->
             <div class="input-field col s12">
                 <i class="fas fa-book prefix green-text"></i>
                 <input id="title" name="title" type="text" class="validate" minlength="5" maxlength="40" required>
                 <label for="title">Book Title</label>
             </div>
+            <!-- book author -->
             <div class="input-field col s12">
                 <i class="fas fa-user prefix orange-text text-darken-2"></i>
                 <input id="author" name="author" type="text" minlength="5" class="validate" required>
                 <label for="author">Author</label>
             </div>
+            <!-- ISBN -->
             <div class="input-field col s12">
                 <i class="fab fa-draft2digital prefix cyan-text text-darken-2"></i>
                 <input id="isbn" name="isbn" type="text" class="validate">
                 <label for="isbn">ISBN</label>
             </div>
+            <!-- book review -->
             <div class="input-field col s12">
                 <i class="fas fa-file-alt prefix red-text"></i>
                 <textarea id="review" name="review" type="text" class="materialize-textarea validate"
                     data-length="250"></textarea>
                 <label for="review">Review</label>
             </div>
+            <!-- rating selection -->
             <div class="row">
                 <div class="input-field col s12 m6">
                     <select id="rating" name="rating" class="validate" required>
@@ -44,6 +49,7 @@
                     </select>
                     <label for="rating">Rating</label>
                 </div>
+            <!-- age group selection -->
                 <div class="input-field col s12 m6">
                     <select multiple id="age_group" name="age_group" required>
                         <option value="" disabled selected>Who is it for?</option>
@@ -54,6 +60,7 @@
                     <label for="age_group">Age group</label>
                 </div>
             </div>
+            <!-- category selection -->
             <div class="row">
                 <div class="input-field col s12 m6">
                     <select multiple id="category_name" name="category_name">
@@ -64,11 +71,20 @@
                     </select>
                     <label for="category_name">Categories</label>
                 </div>
+            <!-- cover upload -->
                 <div class="input-field col s12 m6">
                     <i class="fas fa-cloud-upload-alt prefix cyan-text"></i>
                     <input id="cover" name="cover" type="text" class="validate">
                     <label for="cover">Paste cover url here</label>
                 </div>
+            </div>
+        </div>
+        <!-- submit button -->
+        <div class="row">
+            <div class="col s12 center-align">
+                <button type="submit" class="btn-large purple darken-1 text-shadow">
+                    Add Review <i class="fas fa-plus-square right"></i>
+                </button>
             </div>
         </div>
     </form>
