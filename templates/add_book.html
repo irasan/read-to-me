@@ -8,69 +8,67 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="fas fa-book prefix green-text"></i>
-                <input id="title" type="text" class="validate">
+                <input id="title" name="title" type="text" class="validate" minlength="5" maxlength="40" required>
                 <label for="title">Book Title</label>
             </div>
             <div class="input-field col s12">
                 <i class="fas fa-user prefix orange-text text-darken-2"></i>
-                <input id="author" type="text" class="validate">
+                <input id="author" name="author" type="text" minlength="5" class="validate" required>
                 <label for="author">Author</label>
             </div>
             <div class="input-field col s12">
                 <i class="fab fa-draft2digital prefix cyan-text text-darken-2"></i>
-                <input id="ibsn" type="text" class="validate">
-                <label for="ibsn">IBSN</label>
+                <input id="isbn" name="isbn" type="text" class="validate">
+                <label for="isbn">ISBN</label>
             </div>
             <div class="input-field col s12">
                 <i class="fas fa-file-alt prefix red-text"></i>
-                <textarea id="review" type="text" class="materialize-textarea validate" data-length="250"></textarea>
+                <textarea id="review" name="review" type="text" class="materialize-textarea validate"
+                    data-length="250"></textarea>
                 <label for="review">Review</label>
             </div>
-            <div class="input-field col s12 m6">
-                <select>
-                    <option value="" disabled selected>How good is it?</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                <label>Rating</label>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <select id="rating" name="rating" class="validate" required>
+                        <option value="" disabled selected>How good is it?</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <label for="rating">Rating</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select multiple id="age_group" name="age_group" required>
+                        <option value="" disabled selected>Who is it for?</option>
+                        {% for age in ages %}
+                        <option value="{{ age.age_group }}">{{ age.age_group }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="age_group">Age group</label>
+                </div>
             </div>
-            <div class="input-field col s12 m6">
-                <select multiple>
-                    <option value="" disabled selected>Who is it for?</option>
-                    <option value="1">0-2 years</option>
-                    <option value="2">3-5 years</option>
-                    <option value="3">6-8 years</option>
-                    <option value="3">9-12 years</option>
-                </select>
-                <label>Age group</label>
-            </div>
-            <div class="input-field col s12 m6">
-                <select multiple>
-                    <option value="" disabled selected>What is it about?</option>
-                    <option value="1">Animals</option>
-                    <option value="2">Cars and Trucks</option>
-                    <option value="3">Trains and Planes</option>
-                    <option value="5">Space</option>
-                    <option value="6">Dinosours</option>
-                    <option value="7">Princesses</option>
-                    <option value="8">Nature</option>
-                    <option value="9">Poems and Rhymes</option>
-                    <option value="10">Tales and Myths</option>
-                </select>
-                <label>Categories</label>
-            </div>
-            <div class="input-field col s12 m6">
-                <i class="fas fa-cloud-upload-alt prefix cyan-text"></i>
-                <input id="cover" type="text" class="validate">
-                <label for="cover">Paste cover url here</label>
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <select multiple id="category_name" name="category_name">
+                        <option value="" disabled selected>What is it about?</option>
+                        {% for category in categories %}
+                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="category_name">Categories</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <i class="fas fa-cloud-upload-alt prefix cyan-text"></i>
+                    <input id="cover" name="cover" type="text" class="validate">
+                    <label for="cover">Paste cover url here</label>
+                </div>
             </div>
         </div>
     </form>

@@ -124,7 +124,10 @@ def logout():
 
 @app.route("/add_book", methods=["GET", "POST"])
 def add_book():
-    return render_template("add_book.html")
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+    return render_template(
+        "add_book.html", categories=categories, ages=ages)
 
 
 if __name__ == "__main__":
