@@ -38,7 +38,8 @@ def register():
         if (request.form.get("password") == request.form.get("password1")):
             register = {
                 "username": request.form.get("username").lower(),
-                "password": generate_password_hash(request.form.get("password"))
+                "password": generate_password_hash(
+                    request.form.get("password"))
             }
             mongo.db.users.insert_one(register)
 
@@ -109,7 +110,24 @@ def profile(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        return render_template("profile.html", username=username)
+        revs = list(mongo.db.reviews.find({username: username}))
+        for rev in revs:
+            books1 = {
+                "title": mongo.db.books1.find_one({
+                    "_id": rev.book_id})["title"],
+                "author": mongo.db.books1.find_one({
+                    "_id": rev.book_id})["author"]
+            }
+            books2 = {
+                "title": mongo.db.books2.find_one({
+                    "_id": mongo.db.books1.find("book_id")})["title"],
+                "author": mongo.db.books2.find_one({
+                    "_id": mongo.db.books1.find("book_id")})["author"]
+            }
+        rats = list(mongo.db.ratings.find({username: username}))
+
+        return render_template(
+            "profile.html", username=username, revs=revs, rats=rats)
 
     return redirect(url_for("login"))
 
@@ -125,26 +143,31 @@ def logout():
 @app.route("/add_book", methods=["GET", "POST"])
 def add_book():
     if request.method == "POST":
-        age = request.form.get("age_group")
         user = session["user"]
-        book = {
-            "title": request.form.get("title"),
-            "author": request.form.get("author"),
-            "isbn": request.form.get("isbn"),
+        existing_book = mongo.db.books.find_one(
+            {"title": request.form.get("title").lower()})
+
+        if not existing_book:
+            book = {
+                "title": request.form.get("title"),
+                "author": request.form.get("author"),
+                "isbn": request.form.get("isbn"),
+                "category": request.form.get("category_name"),
+                "age": request.form.get("age_group")
+            }
+            mongo.db.books.insert_one(book)
+
+        book_id = mongo.db.books.find_one(
+            {"title": request.form.get("title")})["_id"]
+
+        review = {
             "review": request.form.get("review"),
             "rating": request.form.get("rating"),
-            "category": request.form.get("category_name"),
+            "book_id": book_id,
             "created_by": session["user"]
         }
 
-        if age == "0-2 years":
-            mongo.db.books1.insert_one(book)
-        elif age == "3-5 years":
-            mongo.db.books2.insert_one(book)
-        elif age == "6-8 years":
-            mongo.db.books3.insert_one(book)
-        else:
-            mongo.db.books4.insert_one(book)
+        mongo.db.reviews.insert_one(review)
         flash("Your Review Successfully Added")
         return render_template("profile.html", username=user)
 
