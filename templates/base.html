@@ -30,9 +30,9 @@
                 <!-- large screen sidenav -->
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="sass.html">Search</a></li>
+                    <li><a href="#">Search</a></li>
                     {% if session.user %}
-                    <li><a href="{{ url_for('add_book') }}">Add Review</a></li>
+                    <li><a href="{{ url_for('add_review') }}">Add Review</a></li>
                     <li><a href="{{ url_for('profile', username=session['user']) }}">My Books</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
@@ -49,9 +49,9 @@
                 <h4 class="center-align cyan-text text-darken 1">Read to me</h4>
             </li>
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="sass.html">Search</a></li>
+            <li><a href="#">Search</a></li>
             {% if session.user %}
-            <li><a href="{{ url_for('add_book') }}">Add Review</a></li>
+            <li><a href="{{ url_for('add_review') }}">Add Review</a></li>
             <li><a href="{{ url_for('profile', username=session['user']) }}">My Books</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}

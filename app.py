@@ -124,7 +124,7 @@ def profile(username):
                 {"_id": item}, {"title": 1, "author": 1})
             print(book)
             review = mongo.db.reviews.find_one(
-                {"_id": id}, {"review": 1, "rating": 1})
+                {"_id": id}, {"review_id": 1, "review": 1, "rating": 1})
             print(review)
             merged = {**book, **review}
             print("Merged", merged)
@@ -144,8 +144,8 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_book", methods=["GET", "POST"])
-def add_book():
+@app.route("/add_review", methods=["GET", "POST"])
+def add_review():
     if request.method == "POST":
         user = session["user"]
         existing_book = mongo.db.books.find_one(
@@ -178,7 +178,14 @@ def add_book():
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
     return render_template(
-        "add_book.html", categories=categories, ages=ages)
+        "add_review.html", categories=categories, ages=ages)
+
+
+@app.route("/edit_review/<review_id>", methods=["GET", "POST"])
+def edit_review(review_id):
+    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+    book = mongo.db.books.find_one({"_id": ObjectId(review["book_id"])})
+    return render_template("edit_review.html", review=review, book=book)
 
 
 if __name__ == "__main__":
