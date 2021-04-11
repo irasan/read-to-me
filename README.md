@@ -63,3 +63,9 @@ After thorough consideration of users' and developer's goals, the following [wir
 #### Icons
 
 #### Colors and Styling
+
+### Borrowed Code 
+Code for reading data from different collections in MongoDB to create a dictionary of user's reviews was peeked 
+[here](https://stackoverflow.com/questions/16849955/how-can-i-join-data-from-two-mongodb-collections-in-python)
+However, combining two dictionaries into one was done using new functionality of Python, as seen 
+[here](https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression-taking-union-of-dictiona) 

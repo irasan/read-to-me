@@ -112,6 +112,8 @@ def profile(username):
 
     if session["user"]:
         revs = mongo.db.reviews.find({"created_by": username})
+        
+        # this part was borrowed from StackOverflow (see Readme.md)
         book_ids = []
         for rev in revs:
             book_ids.append((rev['_id'], rev['book_id']))
