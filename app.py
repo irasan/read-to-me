@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
+from itertools import chain
 
 
 app = Flask(__name__)
@@ -110,24 +111,24 @@ def profile(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        revs = list(mongo.db.reviews.find({username: username}))
+        revs = mongo.db.reviews.find({"created_by": username})
+        book_ids = []
         for rev in revs:
-            books1 = {
-                "title": mongo.db.books1.find_one({
-                    "_id": rev.book_id})["title"],
-                "author": mongo.db.books1.find_one({
-                    "_id": rev.book_id})["author"]
-            }
-            books2 = {
-                "title": mongo.db.books2.find_one({
-                    "_id": mongo.db.books1.find("book_id")})["title"],
-                "author": mongo.db.books2.find_one({
-                    "_id": mongo.db.books1.find("book_id")})["author"]
-            }
-        rats = list(mongo.db.ratings.find({username: username}))
+            book_ids.append((rev['_id'], rev['book_id']))
+        print(book_ids)
+
+        for id, item in book_ids:
+            book = mongo.db.books.find_one(
+                {"_id": item}, {"title": 1, "author": 1})
+            print(book)
+            review = mongo.db.reviews.find_one(
+                {"_id": id}, {"review": 1, "rating": 1})
+            print(review)
+            merged = {**book, **review}
+            print(merged)
 
         return render_template(
-            "profile.html", username=username, revs=revs, rats=rats)
+            "profile.html", merged=merged)
 
     return redirect(url_for("login"))
 

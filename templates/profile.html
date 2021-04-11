@@ -1,31 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="row">
-    <div class="col s12 m10 offset-m1">
+<!-- <div class="row">
+    <div class="col s12 m10 offset-m1"> -->
         <h3 class="center-align purple-text">
             My Reviews
         </h3>
         <ul class="collapsible">
-            {% for book in books1 %}
+            {% for book in merged %}
             <li>
-                <div class="collapsible-header green lighten-4"><i class="material-icons">expand_more</i>{{ books1.title}} 
-                    {{ books1.author}} </div>
-                <div class="collapsible-body"><span>{{ revs.text}} </span></div>
+                <div class="collapsible-header green lighten-4"><i class="material-icons">expand_more</i>{{ book.title}} 
+                    {{ book.author}} </div>
+                <div class="collapsible-body"><span>{{ book.review}} </span></div>
             </li>
             {% endfor %}
-            
-            <li>
-                <div class="collapsible-header green lighten-4"><i class="material-icons">expand_more</i>Second</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-                <div class="collapsible-header green lighten-4"><i class="material-icons">expand_more</i>Third</div>
-                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
         </ul>
-    </div>
-</div>
+    <!-- </div> -->
+<!-- </div> -->
 
 
 {% endblock %}
