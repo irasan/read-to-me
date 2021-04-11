@@ -112,7 +112,7 @@ def profile(username):
 
     if session["user"]:
         revs = mongo.db.reviews.find({"created_by": username})
-        
+        users_revs = []
         # this part was borrowed from StackOverflow (see Readme.md)
         book_ids = []
         for rev in revs:
@@ -127,10 +127,11 @@ def profile(username):
                 {"_id": id}, {"review": 1, "rating": 1})
             print(review)
             merged = {**book, **review}
-            print(merged)
+            print("Merged", merged)
+            users_revs.append(merged)
 
         return render_template(
-            "profile.html", merged=merged)
+            "profile.html", users_revs=users_revs)
 
     return redirect(url_for("login"))
 

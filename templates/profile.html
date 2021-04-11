@@ -6,12 +6,13 @@
         <h3 class="center-align purple-text">
             My Reviews
         </h3>
+        <!-- <div> {{ users_revs }} </div> -->
         <ul class="collapsible">
-            {% for book in merged %}
+            {% for book in users_revs %}
             <li>
                 <div class="collapsible-header green lighten-4"><i class="material-icons">expand_more</i>{{ book.title}} 
                     {{ book.author}} </div>
-                <div class="collapsible-body"><span>{{ book.review}} </span></div>
+                <div class="collapsible-body"><span>{{ book.rating}} : {{ book.review}} </span></div>
             </li>
             {% endfor %}
         </ul>
