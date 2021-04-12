@@ -15,8 +15,8 @@
                         <strong id="rating">{{ item.rating}}<i class="far fa-star"></i></strong>
                     </div>
                     <div class="col s3">
-                        <a href="" class="btn-small green accent-4">Delete</a>
-                        <a href="{{ url_for('edit_review', review_id=item._id) }}" class="btn-small orange lighten-1">Edit</a>
+                        <a href="{{ url_for('delete_review', review_id=item._id) }}" class="btn-small orange accent-4">Delete</a>
+                        <a href="{{ url_for('edit_review', review_id=item._id) }}" class="btn-small green lighten-1">Edit</a>
                     </div>
                 </div>
                 <div class="collapsible-body"><span>{{ item.rating}} : {{ item.review}} </span></div>

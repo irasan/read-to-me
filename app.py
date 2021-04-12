@@ -7,7 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
-from itertools import chain
 
 
 app = Flask(__name__)
@@ -22,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    return render_template("home")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -209,6 +208,13 @@ def edit_review(review_id):
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
     return render_template(
         "edit_review.html", review=review, book=book, categories=categories, ages=ages)
+
+
+@app.route("/delete_review/<review_id>")
+def delete_review(review_id):
+    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    flash("Review Was Successfully Deleted")
+    return render_template("home.html")
 
 
 if __name__ == "__main__":
