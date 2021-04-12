@@ -32,8 +32,8 @@
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="#">Search</a></li>
                     {% if session.user %}
-                    <li><a href="{{ url_for('add_review') }}">Add Review</a></li>
-                    <li><a href="{{ url_for('profile', username=session['user']) }}">My Books</a></li>
+                    <li><a href="{{ url_for('add_review') }}">New Review</a></li>
+                    <li><a href="{{ url_for('profile', username=session['user']) }}">My Reviews</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
                     <li><a href="{{ url_for('login') }}">Login</a></li>
@@ -51,8 +51,8 @@
             <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="#">Search</a></li>
             {% if session.user %}
-            <li><a href="{{ url_for('add_review') }}">Add Review</a></li>
-            <li><a href="{{ url_for('profile', username=session['user']) }}">My Books</a></li>
+            <li><a href="{{ url_for('add_review') }}">New Review</a></li>
+            <li><a href="{{ url_for('profile', username=session['user']) }}">My Reviews</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}
             <li><a href="{{ url_for('login') }}">Login</a></li>

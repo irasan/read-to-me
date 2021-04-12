@@ -152,7 +152,7 @@ def add_review():
 
         if not existing_book:
             book = {
-                "title": request.form.get("title"),
+                "title": request.form.get("title").lower(),
                 "author": request.form.get("author"),
                 "isbn": request.form.get("isbn"),
                 "category": request.form.get("category_name"),
@@ -161,7 +161,7 @@ def add_review():
             mongo.db.books.insert_one(book)
 
         book_id = mongo.db.books.find_one(
-            {"title": request.form.get("title")})["_id"]
+            {"title": request.form.get("title").lower()})["_id"]
 
         review = {
             "review": request.form.get("review"),
@@ -171,8 +171,8 @@ def add_review():
         }
 
         mongo.db.reviews.insert_one(review)
-        flash("Your Review Successfully Added")
-        return render_template("profile.html", username=session["user"])
+        flash("Your Review Was Successfully Added")
+        return render_template("home.html")
 
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
@@ -200,7 +200,7 @@ def edit_review(review_id):
             "review": request.form.get("review"),
             "rating": request.form.get("rating"),
             "book_id": book["_id"],
-            "created_by": session["user"],
+            "created_by": session["user"]
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
         flash("Your Review Was Successfully Edited")
