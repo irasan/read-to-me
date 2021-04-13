@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home")
+    return render_template("home.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -171,7 +171,7 @@ def add_review():
 
         mongo.db.reviews.insert_one(review)
         flash("Your Review Was Successfully Added")
-        return render_template("home.html")
+        return render_template("home")
 
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
@@ -215,6 +215,12 @@ def delete_review(review_id):
     mongo.db.reviews.remove({"_id": ObjectId(review_id)})
     flash("Review Was Successfully Deleted")
     return render_template("home.html")
+
+
+@app.route("/get_categories")
+def get_categories():
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    return render_template("categories.html", categories=categories)
 
 
 if __name__ == "__main__":
