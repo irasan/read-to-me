@@ -18,3 +18,8 @@ body {
 #rating {
   float: right;
 }
+
+.f-grid {
+  display: flex;
+  flex-flow: row wrap;
+}
