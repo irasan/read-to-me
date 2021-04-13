@@ -52,9 +52,13 @@
             <!-- age group selection -->
                 <div class="input-field col s12 m6">
                     <select multiple id="age_group" name="age_group" required>
-                        <option value="" disabled selected>Who is it for?</option>
+                        <option value="" disabled>Who is it for?</option>
                         {% for age in ages %}
-                        <option value="{{ age.age_group }}">{{ age.age_group }}</option>
+                            {% if age.age_group == age_group %}
+                                <option value="{{ age.age_group }}" selected> {{ age.age_group }}</option>
+                            {% else %}
+                                <option value="{{ age.age_group }}">{{ age.age_group }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <label for="age_group">Age group</label>

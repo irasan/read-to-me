@@ -82,7 +82,13 @@ def login():
 @app.route("/display_books/<age_group>")
 def display_books(age_group):
     books = mongo.db.books.find({"age": age_group})
-    return render_template("display_books.html", books=books)
+    # book_ids = []
+    # for book in books:
+    #     books_ids.append({book['_id'], mongo.db.books.find(
+    #         {"book_id": book['_id']})["_id"]})
+
+    return render_template(
+        "display_books.html", books=books, age_group=age_group)
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
@@ -98,17 +104,14 @@ def profile(username):
         book_ids = []
         for rev in revs:
             book_ids.append((rev['_id'], rev['book_id']))
-        print(book_ids)
 
         for id, item in book_ids:
             book = mongo.db.books.find_one(
                 {"_id": item}, {"title": 1, "author": 1})
-            print(book)
             review = mongo.db.reviews.find_one(
                 {"_id": id}, {"review_id": 1, "review": 1, "rating": 1})
             print(review)
             merged = {**book, **review}
-            print("Merged", merged)
             users_revs.append(merged)
 
         return render_template(
@@ -125,7 +128,7 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_review", methods=["GET", "POST"])
+@app.route("/add_review/", methods=["GET", "POST"])
 def add_review():
     if request.method == "POST":
         existing_book = mongo.db.books.find_one(
@@ -159,6 +162,42 @@ def add_review():
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
     return render_template(
         "add_review.html", categories=categories, ages=ages)
+
+
+@app.route("/add_review/<age_group>", methods=["GET", "POST"])
+def add_review_by_age(age_group):
+    if request.method == "POST":
+        existing_book = mongo.db.books.find_one(
+            {"title": request.form.get("title").lower()})
+
+        if not existing_book:
+            book = {
+                "title": request.form.get("title").lower(),
+                "author": request.form.get("author"),
+                "isbn": request.form.get("isbn"),
+                "category": request.form.get("category_name"),
+                "age": request.form.get("age_group")
+            }
+            mongo.db.books.insert_one(book)
+
+        book_id = mongo.db.books.find_one(
+            {"title": request.form.get("title").lower()})["_id"]
+
+        review = {
+            "review": request.form.get("review"),
+            "rating": request.form.get("rating"),
+            "book_id": book_id,
+            "created_by": session["user"]
+        }
+
+        mongo.db.reviews.insert_one(review)
+        flash("Your Review Was Successfully Added")
+        return render_template("home")
+
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+    return render_template(
+        "add_review.html", categories=categories, ages=ages, age_group=age_group)
 
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])

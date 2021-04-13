@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 class="center-align purple-text">Books for </h3>
+<h3 class="center-align purple-text">Books for {{ age_group }} old children</h3>
 
 {% for book in books %}
     <div class="divider"></div>
     <div class="section">
-        <h5>Section 1</h5>
-        <p>{{ book.title }}<br>
-        {{ book.author }}<br>
-        {{ book.isbn }}<br>
-        {{ book.category }}<br></p>
+        <h5>{{ book.title }} by {{ book.author }}</h5>
+        <p>{{ book.isbn }}<br>
+        {{ book.category }}<br>
+        
+    </p>
     </div>
 {% endfor %}
 
