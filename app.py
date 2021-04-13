@@ -79,28 +79,10 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/get_books1")
-def get_books1():
-    books = mongo.db.books1.find()
-    return render_template("books1.html", books1=books)
-
-
-@app.route("/get_books2")
-def get_books2():
-    books = mongo.db.books2.find()
-    return render_template("books2.html", books2=books)
-
-
-@app.route("/get_books3")
-def get_books3():
-    books = mongo.db.books3.find()
-    return render_template("books3.html", books3=books)
-
-
-@app.route("/get_books4")
-def get_books4():
-    books = mongo.db.books4.find()
-    return render_template("books4.html", books4=books)
+@app.route("/display_books/<age_group>")
+def display_books(age_group):
+    books = mongo.db.books.find({"age": age_group})
+    return render_template("display_books.html", books=books)
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
