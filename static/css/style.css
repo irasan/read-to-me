@@ -23,3 +23,7 @@ body {
   display: flex;
   flex-flow: row wrap;
 }
+
+#close {
+    font-size: 18px;
+}

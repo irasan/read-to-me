@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="center-align purple-text">Search Results</h3>
+
+{% if books|length > 0 %}
+    {% for book in books %}
+    <div class="divider"></div>
+    <div class="section">
+        <h5>{{ book.title }} by {{ book.author }}</h5>
+        <p>{{ book.isbn }}<br>
+            {{ book.category }}<br>
+
+        </p>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

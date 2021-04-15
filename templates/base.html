@@ -29,13 +29,22 @@
 
                 <!-- large screen sidenav -->
                 <ul class="right hide-on-med-and-down">
+                    <!-- search input -->
+                    <li>
+                        <form action="{{ url_for('search') }}" method="post">
+                            <div class="input-field valign-wrapper ">
+                                <input id="query" name="query" type="search" required>
+                                <label class="label-icon" for="query"><i class="material-icons">search</i></label>
+                                <i class="material-icons">close</i>
+                            </div>
+                        </form>
+                    </li>
                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="#">Search</a></li>
                     {% if session.user %}
                     <li><a href="{{ url_for('add_review') }}">Add Review</a></li>
                     <li><a href="{{ url_for('profile', username=session['user']) }}">My Reviews</a></li>
                     {% if session.user|lower == "admin"|lower %}
-                        <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+                    <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
                     {% endif %}
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
@@ -51,13 +60,14 @@
             <li>
                 <h4 class="center-align cyan-text text-darken 1">Read to me</h4>
             </li>
+
             <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="#">Search</a></li>
             {% if session.user %}
             <li><a href="{{ url_for('add_review') }}">Add Review</a></li>
             <li><a href="{{ url_for('profile', username=session['user']) }}">My Reviews</a></li>
             {% if session.user|lower == "admin"|lower %}
-                <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+            <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
             {% endif %}
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}
