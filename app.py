@@ -28,8 +28,9 @@ def home():
 def search():
     query = request.form.get("query")
     books = list(mongo.db.books.find({"$text": {"$search": query}}))
+
     return render_template(
-        "display_searched_books.html", books=books)
+        "display_searched_books.html", books=books, query=query)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -164,7 +165,7 @@ def add_review():
 
         mongo.db.reviews.insert_one(review)
         flash("Your Review Was Successfully Added")
-        return render_template("home")
+        return render_template("home.html")
 
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
@@ -284,6 +285,14 @@ def delete_category(category_id):
     mongo.db.categories.remove({"_id": ObjectId(category_id)})
     flash("Category Successfully Deleted")
     return redirect(url_for("get_categories"))
+
+
+@app.route("/book_reviews/<book_id>")
+def book_reviews(book_id):
+    book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+    reviews = mongo.db.reviews.find({"book_id": ObjectId(book_id)})
+    return render_template(
+        "book_reviews.html", book=book, reviews=reviews)
 
 
 if __name__ == "__main__":

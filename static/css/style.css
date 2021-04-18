@@ -24,11 +24,6 @@ body {
   flex-flow: row wrap;
 }
 
-#close {
-    float: right;
-    font-size: 18px;
-}
-
 .nav-wrapper .input-field input[type=search] {
   height: 44px;
   color: white;
