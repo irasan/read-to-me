@@ -10,6 +10,13 @@ h4 {
     margin-left: 10px;
 }
 
+#sticky_button {
+    position:fixed;
+    bottom:5%;
+    right:3%;
+    z-index:9999; 
+}
+
 .flashes h4 {
     line-height: 2;
     color: white;

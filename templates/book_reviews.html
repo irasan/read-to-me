@@ -4,24 +4,28 @@
 <h4 style="text-transform: uppercase;" class="center-align purple-text"> {{ book.title }}</h4>
 <h5 class="center-align green-text"> {{ book.author }}</h5>
 <p> {{ book.isbn }} <br>
-Categories: {{ book.category }}</p>
+    Categories: {{ book.category }}</p>
+<a href="{{ url_for('add_review') }}" id="sticky_button"
+    class="btn-floating btn-large pulse waves-effect waves-light red">
+    <i class="fas fa-plus"></i></a>
 
 {% for rev in reviews %}
 <div class="divider"></div>
-<div class="section row">
-    <div id="cover" class="col s10 m4 ">
-        {% if rev.cover|length %} 
-        <img src="{{ rev.cover }}" alt="book_cover">
-        {% else %}
-        <img src="../static/images/book-colored.png" alt="book_cover">
-        {% endif %}
-    </div>
-    <div class="col s12 m8">
-    <h6 class="orange-text accent-4"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
-    <p>
-        {{ rev.review }} </p>
+    <div class="section row">
+        <div id="cover" class="col s10 offset-s1 m4 ">
+            {% if rev.cover|length %}
+            <img src="{{ rev.cover }}" alt="book_cover">
+            {% else %}
+            <img src="../static/images/book-colored.png" alt="book_cover">
+            {% endif %}
         </div>
-</div>
+        <div class="col s10 offset-s1 m8">
+            <h6 class="orange-text accent-4"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
+            <p>
+                {{ rev.review }} </p>
+        </div>
+    </div>
+
 {% endfor %}
 
 {% endblock %}
