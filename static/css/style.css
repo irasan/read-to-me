@@ -2,9 +2,9 @@ body {
     background-color: #fff9c4;
 }
 
-/* .waves-effect {
-  position: absolute;
-} */
+h4 {
+    padding-top: 20px;
+}
 
 .btn-floating {
     margin-left: 10px;
@@ -17,6 +17,10 @@ body {
 
 #rating {
   float: right;
+}
+
+#cover img {
+    width: 100%;
 }
 
 .f-grid {

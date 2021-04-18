@@ -149,7 +149,7 @@ def add_review():
                 "author": request.form.get("author"),
                 "isbn": request.form.get("isbn"),
                 "category": request.form.get("category_name"),
-                "age": request.form.get("age_group")
+                "age": request.form.get("age_group"),
             }
             mongo.db.books.insert_one(book)
 
@@ -160,7 +160,8 @@ def add_review():
             "review": request.form.get("review"),
             "rating": request.form.get("rating"),
             "book_id": book_id,
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "cover": request.form.get("cover")
         }
 
         mongo.db.reviews.insert_one(review)
