@@ -9,19 +9,19 @@
             <!-- book title -->
             <div class="input-field col s12">
                 <i class="fas fa-book prefix green-text"></i>
-                <input id="title" name="title" type="text" class="validate" minlength="5" maxlength="40" required>
+                <input id="title" name="title" value="{{ book.title }}" type="text" class="validate" minlength="5" maxlength="40" required>
                 <label for="title">Book Title</label>
             </div>
             <!-- book author -->
             <div class="input-field col s12">
                 <i class="fas fa-user prefix orange-text text-darken-2"></i>
-                <input id="author" name="author" type="text" minlength="5" class="validate" required>
+                <input id="author" name="author" value="{{ book.author }}" type="text" minlength="5" class="validate" required>
                 <label for="author">Author</label>
             </div>
             <!-- ISBN -->
             <div class="input-field col s12">
                 <i class="fab fa-draft2digital prefix cyan-text text-darken-2"></i>
-                <input id="isbn" name="isbn" type="text" class="validate">
+                <input id="isbn" name="isbn" value="{{ book.isbn }}" type="text" class="validate">
                 <label for="isbn">ISBN</label>
             </div>
             <!-- book review -->
@@ -54,7 +54,7 @@
                     <select multiple id="age_group" name="age_group" required>
                         <option value="" disabled>Who is it for?</option>
                         {% for age in ages %}
-                            {% if age.age_group == age_group %}
+                            {% if age.age_group == book.age %}
                                 <option value="{{ age.age_group }}" selected> {{ age.age_group }}</option>
                             {% else %}
                                 <option value="{{ age.age_group }}">{{ age.age_group }}</option>
@@ -70,7 +70,11 @@
                     <select multiple id="category_name" name="category_name">
                         <option value="" disabled selected>What is it about?</option>
                         {% for category in categories %}
-                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% if category.category_name == book.category %}
+                                <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                            {% else %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <label for="category_name">Categories</label>

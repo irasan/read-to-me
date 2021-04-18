@@ -5,7 +5,7 @@
 <h5 class="center-align green-text"> {{ book.author }}</h5>
 <p> {{ book.isbn }} <br>
     Categories: {{ book.category }}</p>
-<a href="{{ url_for('add_review') }}" id="sticky_button"
+<a href="{{ url_for('add_review_by_title', book_id=book._id) }}" id="sticky_button"
     class="btn-floating btn-large pulse waves-effect waves-light red">
     <i class="fas fa-plus"></i></a>
 

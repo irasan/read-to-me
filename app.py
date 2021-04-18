@@ -210,6 +210,39 @@ def add_review_by_age(age_group):
         "add_review.html", categories=categories, ages=ages, age_group=age_group)
 
 
+@app.route("/add_review_by_title/<book_id>", methods=["GET", "POST"])
+def add_review_by_title(book_id):
+    book = mongo.db.books.find_one(
+            {"_id": ObjectId(book_id)})
+    if request.method == "POST":
+
+        if request.method == "POST":
+            updated_book = {
+                "title": book["title"],
+                "author": request.form.get("author"),
+                "isbn": request.form.get("isbn"),
+                "category": request.form.get("category_name"),
+                "age": request.form.get("age_group")
+            }
+        mongo.db.books.update(
+            {"_id": ObjectId(book["_id"])}, updated_book)
+
+        review = {
+            "review": request.form.get("review"),
+            "rating": request.form.get("rating"),
+            "book_id": book["_id"],
+            "created_by": session["user"],
+            "cover": request.form.get("cover")
+        }
+        mongo.db.reviews.insert_one(review)
+        flash("Your Review Was Successfully Added")
+
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+    return render_template(
+        "add_review.html", book=book, categories=categories, ages=ages)
+
+
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
 def edit_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
