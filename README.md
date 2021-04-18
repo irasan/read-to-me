@@ -69,3 +69,5 @@ Code for reading data from different collections in MongoDB to create a dictiona
 [here](https://stackoverflow.com/questions/16849955/how-can-i-join-data-from-two-mongodb-collections-in-python)
 However, combining two dictionaries into one was done using new functionality of Python, as seen 
 [here](https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression-taking-union-of-dictiona) 
+Styling of search field in the navbar was inspired by this [post:]
+(https://stackoverflow.com/questions/42126743/aligning-search-input-in-navbar-with-materialize)
