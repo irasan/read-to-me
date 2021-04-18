@@ -39,11 +39,11 @@
                     <select id="rating" name="rating" class="validate" required>
                         <option value="" disabled>How good is it?</option>
                         {% for n in range(1,11) %}
-                            {% if review.rating | int == n  %}
-                                <option value="{{n}}" selected>{{n}}</option>
-                            {% else %}
-                                <option value="{{n}}">{{n}}</option>
-                            {% endif %}
+                        {% if review.rating | int == n  %}
+                        <option value="{{n}}" selected>{{n}}</option>
+                        {% else %}
+                        <option value="{{n}}">{{n}}</option>
+                        {% endif %}
                         {% endfor %}
                     </select>
                     <label for="rating">Rating</label>
@@ -53,11 +53,11 @@
                     <select multiple id="age_group" name="age_group" required>
                         <option value="" disabled>Who is it for?</option>
                         {% for age in ages %}
-                            {% if age.age_group == book.age %}
-                                <option value="{{ age.age_group }}" selected> {{ age.age_group }}</option>
-                            {% else %}
-                                <option value="{{ age.age_group }}"> {{ age.age_group }}</option>
-                            {% endif %}
+                        {% if age.age_group == book.age %}
+                        <option value="{{ age.age_group }}" selected> {{ age.age_group }}</option>
+                        {% else %}
+                        <option value="{{ age.age_group }}"> {{ age.age_group }}</option>
+                        {% endif %}
                         {% endfor %}
                     </select>
                     <label for="age_group">Age group</label>
@@ -66,14 +66,14 @@
             <!-- category selection -->
             <div class="row">
                 <div class="input-field col s12 m6">
-                    <select multiple id="category_name" name="category_name">
+                    <select multiple id="category_name" name="category_name" required>
                         <option value="" disabled>What is it about?</option>
                         {% for category in categories %}
-                            {% if category.category_name == book.category %}
-                                <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
-                            {% else %}
-                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                            {% endif %}
+                        {% if category.category_name == book.category %}
+                        <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                        {% else %}
+                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% endif %}
                         {% endfor %}
                     </select>
                     <label for="category_name">Categories</label>
@@ -90,9 +90,9 @@
         <div class="row">
             <div class="col s12 center-align">
                 <!-- cancel button -->
-                    <a href="{{ url_for('profile', username=session['user'])  }}" class="btn-large orange text-shadow">
-                        Cancel <i class="fas fa-times-circle right"></i>
-                    </a>
+                <a href="{{ url_for('profile', username=session['user'])  }}" class="btn-large orange text-shadow">
+                    Cancel <i class="fas fa-times-circle right"></i>
+                </a>
                 <button type="submit" class="btn-large purple darken-1 text-shadow">
                     Edit Review <i class="fas fa-edit right"></i>
                 </button>

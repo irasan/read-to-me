@@ -11,7 +11,7 @@
                     <a href="{{ url_for('display_books', age_group = '0-2 years') }}">
                     <img class="responsive-img" src="../static/images/group1.jpg">
                     <span style="font-size:xx-large" class="card-title">0-2 years old</span></a>
-                    <a href="{{ url_for('add_review') }}" class="btn-floating btn-large pulse waves-effect waves-light green"><i class="fas fa-plus"></i></a>        
+                    <a href="{{ url_for('add_review_by_age', age_group = '0-2 years') }}" class="btn-floating btn-large pulse waves-effect waves-light green"><i class="fas fa-plus"></i></a>        
                 </div>
                 <div class="card-content">
                     <p>High contrast and sensory books, first nursery rhymes etc.</p>
@@ -24,7 +24,7 @@
                     <a href="{{ url_for('display_books', age_group = '3-5 years') }}">
                     <img class="responsive-img" src="../static/images/group2.jpg">
                     <span style="font-size:xx-large" class="card-title ">3-5 years old</span></a>
-                    <a href="{{ url_for('add_review') }}" class="btn-floating btn-large pulse waves-effect waves-light orange"><i class="fas fa-plus"></i></a>
+                    <a href="{{ url_for('add_review_by_age', age_group = '3-5 years') }}" class="btn-floating btn-large pulse waves-effect waves-light orange"><i class="fas fa-plus"></i></a>
                 </div>
                 <div class="card-content">
                     <p>Beautifully illustrated books with no words, first words, short stories etc.</p>
@@ -39,7 +39,7 @@
                     <a href="{{ url_for('display_books', age_group = '6-8 years') }}">
                     <img class="responsive-img" src="../static/images/group3.jpg">
                     <span style="font-size:xx-large" class="card-title">6-8 years old</span></a>
-                    <a href="{{ url_for('add_review') }}" class="btn-floating btn-large pulse waves-effect waves-light red"><i class="fas fa-plus"></i></a>
+                    <a href="{{ url_for('add_review_by_age', age_group = '6-8 years') }}" class="btn-floating btn-large pulse waves-effect waves-light red"><i class="fas fa-plus"></i></a>
                 </div>
                 <div class="card-content">
                     <p>Books for children who start to read on their own, longer stories to be read by caregivers and many more.</p>
