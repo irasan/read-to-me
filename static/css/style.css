@@ -65,3 +65,9 @@ h4 {
   flex-direction:row;
   float: right;
 }
+
+@media screen and (max-width: 300px) {
+    .button-text {
+        display: none;
+    }
+}
