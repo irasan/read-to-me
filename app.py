@@ -24,6 +24,11 @@ def home():
     return render_template("home.html")
 
 
+@app.route("/search_template")
+def search_template():
+    return render_template("search.html")
+
+
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
