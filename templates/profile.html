@@ -1,31 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h3 class="purple-text center-align">My Reviews</h3>
+
 <div class="row">
     <div class="col s12 m10 offset-m1">
-        <h3 class="center-align purple-text">
-            My Reviews
-        </h3>
-
-        <ul class="collapsible">
+       <ul class="collapsible">
             {% for item in users_revs %}
-            <li>
-                <div class="collapsible-header green lighten-4"><i class="material-icons">expand_more</i>
-                    <div class="col s9">
-                        <h5 style="text-transform: uppercase;">{{ item.title}}</h5> <strong> {{ item.author}} </strong>
-                        <strong id="rating">{{ item.rating}}<i class="far fa-star"></i></strong>
-                    </div>
-                    <div class="col s3">
-                        <a href="{{ url_for('delete_review', review_id=item._id) }}" class="btn-small orange accent-4">Delete</a>
-                        <a href="{{ url_for('edit_review', review_id=item._id) }}" class="btn-small green lighten-1">Edit</a>
-                    </div>
+            <li>  
+                <div class="collapsible-header green lighten-4 valign-wrapper">
+                    <div class="col s12 m8 rev-wrapper">
+                    <h5 style="text-transform: uppercase;"><i class="material-icons">expand_more</i>{{ item.title}}</h5>
+                    <strong> {{ item.author}} </strong>
                 </div>
-                <div class="collapsible-body"><span>{{ item.rating}} : {{ item.review}} </span></div>
-            </li>
-            {% endfor %}
-        </ul>
+                <div class="col s2">
+                        <strong id="rating">{{ item.rating}}<i class="far fa-star"></i></strong>
+                </div>
+                <div class="col s12 m3">
+                        <a href="{{ url_for('delete_review', review_id=item._id) }}"
+                            class="btn-small orange accent-4">Delete</a>
+                        <a href="{{ url_for('edit_review', review_id=item._id) }}"
+                            class="btn-small green lighten-1">Edit</a>
+                </div>
+                </div>
+            <div class="collapsible-body"><span>{{ item.review}} </span></div>
+    </li>
+    {% endfor %}
+    </ul>
     </div>
 </div>
-
 
 {% endblock %}
