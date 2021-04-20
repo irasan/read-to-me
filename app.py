@@ -153,8 +153,8 @@ def add_review():
                 "title": request.form.get("title").lower(),
                 "author": request.form.get("author"),
                 "isbn": request.form.get("isbn"),
-                "category": request.form.get("category_name"),
-                "age": request.form.get("age_group"),
+                "category": request.form.getlist("category_name"),
+                "age": request.form.getlist("age_group"),
             }
             mongo.db.books.insert_one(book)
 
@@ -192,8 +192,8 @@ def add_review_by_age(age_group):
                 "title": request.form.get("title").lower(),
                 "author": request.form.get("author"),
                 "isbn": request.form.get("isbn"),
-                "category": request.form.get("category_name"),
-                "age": request.form.get("age_group")
+                "category": request.form.getlist("category_name"),
+                "age": request.form.getlist("age_group")
             }
             mongo.db.books.insert_one(book)
 
@@ -230,8 +230,8 @@ def add_review_by_title(book_id):
                 "title": book["title"],
                 "author": request.form.get("author"),
                 "isbn": request.form.get("isbn"),
-                "category": request.form.get("category_name"),
-                "age": request.form.get("age_group")
+                "category": request.form.getlist("category_name"),
+                "age": request.form.getlist("age_group")
             }
         mongo.db.books.update(
             {"_id": ObjectId(book["_id"])}, updated_book)
@@ -262,8 +262,8 @@ def edit_review(review_id):
             "title": book["title"],
             "author": request.form.get("author"),
             "isbn": request.form.get("isbn"),
-            "category": request.form.get("category_name"),
-            "age": request.form.get("age_group")
+            "category": request.form.getlist("category_name"),
+            "age": request.form.getlist("age_group")
         }
         mongo.db.books.update(
             {"_id": ObjectId(book["_id"])}, updated_book)
