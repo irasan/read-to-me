@@ -173,10 +173,12 @@ def add_review():
         flash("Your Review Was Successfully Added")
         return render_template("home.html")
 
+    book = mongo.db.books.find_one(
+            {"title": request.form.get("title")})
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
     return render_template(
-        "add_review.html", categories=categories, ages=ages)
+        "add_review.html", book=book, categories=categories, ages=ages)
 
 
 @app.route("/add_review/<age_group>", methods=["GET", "POST"])
