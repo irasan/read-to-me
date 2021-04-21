@@ -95,12 +95,15 @@ def login():
 
 @app.route("/display_books/<age_group>")
 def display_books(age_group):
-    books = mongo.db.books.find({"age": age_group})
-    # book_ids = []
-    # for book in books:
-    #     books_ids.append({book['_id'], mongo.db.books.find(
-    #         {"book_id": book['_id']})["_id"]})
-
+    books = list(mongo.db.books.find({"age": age_group}))
+    for book in books:
+        cover = mongo.db.covers.find_one(
+            {"book_id": ObjectId(book["_id"])})
+        if cover is not None:
+            print(cover["cover"])
+            book["cover"] = cover["cover"]
+            print(book)
+    print(books)
     return render_template(
         "display_books.html", books=books, age_group=age_group)
 
@@ -124,7 +127,6 @@ def profile(username):
                 {"_id": item}, {"title": 1, "author": 1})
             review = mongo.db.reviews.find_one(
                 {"_id": id}, {"review_id": 1, "review": 1, "rating": 1})
-            print(review)
             merged = {**book, **review}
             users_revs.append(merged)
 

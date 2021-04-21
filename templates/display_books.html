@@ -5,7 +5,15 @@
 
 {% for book in books %}
 <div class="divider"></div>
-<div class="section">
+<div class="section row">
+    <div id="cover" class="col s10 offset-s1 m4 ">
+            {% if book.cover|length %}
+            <img src="{{ book.cover }}" alt="book_cover">
+            {% else %}
+            <img src="../static/images/book-colored.png" alt="book_cover">
+            {% endif %}
+    </div>
+    <div class="col s10 offset-s1 m8">
     <a href="{{ url_for('book_reviews', book_id=book._id) }}">
     <h5 style="text-transform: uppercase;">{{ book.title }} </h5></a>
     <h6> {{ book.author }} </h6>
@@ -13,6 +21,7 @@
         <span>{{ item }} &middot </span>
         {% endfor %}
     </p>
+    </div>
 </div>
 {% endfor %}
 

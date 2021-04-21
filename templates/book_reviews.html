@@ -14,11 +14,11 @@
 {% for rev in reviews %}
 <div class="divider"></div>
     <div class="section row">
-        <div id="cover" class="col s10 offset-s1 m4 ">
+        <div class="col s10 offset-s1 m4 ">
             {% if rev.cover|length %}
-            <img src="{{ rev.cover }}" alt="book_cover">
+            <img class="responsive-img" src="{{ rev.cover }}" alt="book_cover">
             {% else %}
-            <img src="../static/images/book-colored.png" alt="book_cover">
+            <img class="responsive-img" src="../static/images/book-colored.png" alt="book_cover">
             {% endif %}
         </div>
         <div class="col s10 offset-s1 m8">
