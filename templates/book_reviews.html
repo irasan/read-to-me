@@ -3,7 +3,7 @@
 
 <h4 style="text-transform: uppercase;" class="center-align purple-text"> {{ book.title }}</h4>
 <h5 class="center-align green-text"> {{ book.author }}</h5>
-<p> {{ book.isbn }} <br>
+<p> ISBN: {{ book.isbn }} <br>
     Categories: {% for item in book.category %}
         <span>{{ item }} &middot </span>
         {% endfor %}</p>

@@ -161,12 +161,17 @@ def add_review():
         book_id = mongo.db.books.find_one(
             {"title": request.form.get("title").lower()})["_id"]
 
+        cover = {
+            "cover": request.form.get("cover"),
+            "book_id": book_id
+        }
+        mongo.db.covers.insert_one(cover)
+
         review = {
             "review": request.form.get("review"),
             "rating": request.form.get("rating"),
             "book_id": book_id,
-            "created_by": session["user"],
-            "cover": request.form.get("cover")
+            "created_by": session["user"]
         }
 
         mongo.db.reviews.insert_one(review)
