@@ -1,6 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Josefin+Slab&display=swap');
+
 body {
     background-color: #fff9c4;
+    font-family: 'Josefin Slab', serif;
+    font-weight: 400;
 }
+
+#logo{
+    font-family: 'Gloria Hallelujah', serif;
+}
+
+/* h3, h2, h1, h4, h5, h6 {
+    font-family: 'Gloria Hallelujah', serif;
+} */
 
 h4 {
     padding-top: 20px;
