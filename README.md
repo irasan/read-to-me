@@ -71,3 +71,4 @@ However, combining two dictionaries into one was done using new functionality of
 [here](https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression-taking-union-of-dictiona) 
 Styling of search field in the navbar was inspired by this [post:]
 (https://stackoverflow.com/questions/42126743/aligning-search-input-in-navbar-with-materialize)
+Custom error page handling was taken from [Flask documentation:] (https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)

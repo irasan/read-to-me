@@ -96,14 +96,20 @@ def login():
 @app.route("/display_books/<age_group>")
 def display_books(age_group):
     books = list(mongo.db.books.find({"age": age_group}))
+    ratings = mongo.db.reviews.aggregate(
+        [{'$group': {'_id': '$book_id', 'Average': {'$avg': '$rating'}}}])
+
+    print(ratings)
     for book in books:
+        id = ObjectId(book["_id"])
         cover = mongo.db.covers.find_one(
-            {"book_id": ObjectId(book["_id"])})
+            {"book_id": id})
         if cover is not None:
-            print(cover["cover"])
             book["cover"] = cover["cover"]
-            print(book)
-    print(books)
+        for id, rat in ratings.items():
+            if id == id:
+                book["rating"] = ratings.get("Average")
+
     return render_template(
         "display_books.html", books=books, age_group=age_group)
 
@@ -343,6 +349,11 @@ def book_reviews(book_id):
     reviews = mongo.db.reviews.find({"book_id": ObjectId(book_id)})
     return render_template(
         "book_reviews.html", book=book, reviews=reviews)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 if __name__ == "__main__":
