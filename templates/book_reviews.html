@@ -7,6 +7,11 @@
     Categories: {% for item in book.category %}
         <span>{{ item }} &middot </span>
         {% endfor %}</p>
+        <p>Rating: {% for item in ratings %}
+            {% if item._id == book._id %}
+                {{ item.average }}
+            {% endif %}
+        {% endfor %}</p>
 <a href="{{ url_for('add_review_by_title', book_id=book._id) }}" id="sticky_button"
     class="btn-floating btn-large pulse waves-effect waves-light red">
     <i class="fas fa-plus"></i></a>

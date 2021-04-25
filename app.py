@@ -33,9 +33,11 @@ def search_template():
 def search():
     query = request.form.get("query")
     books = list(mongo.db.books.find({"$text": {"$search": query}}))
+    ratings = list(mongo.db.reviews.aggregate(
+        [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
 
     return render_template(
-        "display_searched_books.html", books=books, query=query)
+        "display_searched_books.html", books=books, query=query, ratings=ratings)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -96,8 +98,8 @@ def login():
 @app.route("/display_books/<age_group>")
 def display_books(age_group):
     books = list(mongo.db.books.find({"age": age_group}))
-    ratings = mongo.db.reviews.aggregate(
-        [{'$group': {'_id': '$book_id', 'Average': {'$avg': '$rating'}}}])
+    ratings = list(mongo.db.reviews.aggregate(
+        [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
 
     print(ratings)
     for book in books:
@@ -106,12 +108,9 @@ def display_books(age_group):
             {"book_id": id})
         if cover is not None:
             book["cover"] = cover["cover"]
-        for id, rat in ratings.items():
-            if id == id:
-                book["rating"] = ratings.get("Average")
 
     return render_template(
-        "display_books.html", books=books, age_group=age_group)
+        "display_books.html", books=books, age_group=age_group, ratings=ratings)
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
@@ -156,6 +155,7 @@ def add_review():
         existing_book = mongo.db.books.find_one(
             {"title": request.form.get("title").lower()})
 
+        # if there's no such book in the db yet, it'll be added:
         if not existing_book:
             book = {
                 "title": request.form.get("title").lower(),
@@ -169,20 +169,22 @@ def add_review():
         book_id = mongo.db.books.find_one(
             {"title": request.form.get("title").lower()})["_id"]
 
+        # create document for covers collection
         cover = {
             "cover": request.form.get("cover"),
             "book_id": book_id
         }
         mongo.db.covers.insert_one(cover)
 
+        # create document for reviews collection
         review = {
             "review": request.form.get("review"),
             "rating": request.form.get("rating"),
             "book_id": book_id,
             "created_by": session["user"]
         }
-
         mongo.db.reviews.insert_one(review)
+
         flash("Your Review Was Successfully Added")
         return render_template("home.html")
 
@@ -278,7 +280,7 @@ def edit_review(review_id):
             "category": request.form.getlist("category_name"),
             "age": request.form.getlist("age_group")
         }
-        mongo.db.books.update(
+        mongo.db.books.replace_one(
             {"_id": ObjectId(book["_id"])}, updated_book)
 
         updated_review = {
@@ -287,7 +289,8 @@ def edit_review(review_id):
             "book_id": book["_id"],
             "created_by": session["user"]
         }
-        mongo.db.reviews.update({"_id": ObjectId(review_id)}, updated_review)
+        mongo.db.reviews.replace_one(
+            {"_id": ObjectId(review_id)}, updated_review)
         flash("Your Review Was Successfully Edited")
 
     categories = list(mongo.db.categories.find().sort("category_name", 1))
@@ -347,8 +350,11 @@ def delete_category(category_id):
 def book_reviews(book_id):
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
     reviews = mongo.db.reviews.find({"book_id": ObjectId(book_id)})
+    ratings = list(mongo.db.reviews.aggregate(
+        [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
+
     return render_template(
-        "book_reviews.html", book=book, reviews=reviews)
+        "book_reviews.html", book=book, reviews=reviews, ratings=ratings)
 
 
 @app.errorhandler(404)

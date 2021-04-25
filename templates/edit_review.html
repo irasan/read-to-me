@@ -90,10 +90,11 @@
         <div class="row">
             <div class="col s12 center-align">
                 <!-- cancel button -->
-                <a href="{{ url_for('profile', username=session['user'])  }}" class="btn-large orange text-shadow">
+                <a href="{{ url_for('profile', username=session['user']) }}" class="btn-large orange text-shadow">
                     Cancel <i class="fas fa-times-circle right"></i>
                 </a>
-                <button type="submit" class="btn-large purple darken-1 text-shadow">
+                <button type="submit" class="btn-large purple darken-1 text-shadow"
+                onclick= "window.location.href='{{ url_for('profile', username=session['user']) }}'">
                     Edit Review <i class="fas fa-edit right"></i>
                 </button>
             </div>
