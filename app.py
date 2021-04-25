@@ -280,7 +280,7 @@ def edit_review(review_id):
             "category": request.form.getlist("category_name"),
             "age": request.form.getlist("age_group")
         }
-        mongo.db.books.replace_one(
+        mongo.db.books.update(
             {"_id": ObjectId(book["_id"])}, updated_book)
 
         updated_review = {
@@ -289,9 +289,10 @@ def edit_review(review_id):
             "book_id": book["_id"],
             "created_by": session["user"]
         }
-        mongo.db.reviews.replace_one(
+        mongo.db.reviews.update(
             {"_id": ObjectId(review_id)}, updated_review)
         flash("Your Review Was Successfully Edited")
+        return redirect(url_for("profile", username=session["user"]))
 
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     ages = list(mongo.db.age_groups.find().sort("age_group", 1))
