@@ -198,7 +198,7 @@ def add_review():
 
 @app.route("/add_review/<age_group>", methods=["GET", "POST"])
 def add_review_by_age(age_group):
-    if session["user"]:
+    if "user" in session:
         if request.method == "POST":
             existing_book = mongo.db.books.find_one(
                 {"title": request.form.get("title").lower()})
@@ -239,36 +239,37 @@ def add_review_by_age(age_group):
 
 @app.route("/add_review_by_title/<book_id>", methods=["GET", "POST"])
 def add_review_by_title(book_id):
-
-    book = mongo.db.books.find_one(
-            {"_id": ObjectId(book_id)})
-    if request.method == "POST":
-
+    if "user" in session:
+        book = mongo.db.books.find_one(
+                {"_id": ObjectId(book_id)})
         if request.method == "POST":
-            updated_book = {
-                "title": book["title"],
-                "author": request.form.get("author"),
-                "isbn": request.form.get("isbn"),
-                "category": request.form.getlist("category_name"),
-                "age": request.form.getlist("age_group")
+
+            if request.method == "POST":
+                updated_book = {
+                    "title": book["title"],
+                    "author": request.form.get("author"),
+                    "isbn": request.form.get("isbn"),
+                    "category": request.form.getlist("category_name"),
+                    "age": request.form.getlist("age_group")
+                }
+            mongo.db.books.update(
+                {"_id": ObjectId(book["_id"])}, updated_book)
+
+            review = {
+                "review": request.form.get("review"),
+                "rating": request.form.get("rating"),
+                "book_id": book["_id"],
+                "created_by": session["user"],
+                "cover": request.form.get("cover")
             }
-        mongo.db.books.update(
-            {"_id": ObjectId(book["_id"])}, updated_book)
+            mongo.db.reviews.insert_one(review)
+            flash("Your Review Was Successfully Added")
 
-        review = {
-            "review": request.form.get("review"),
-            "rating": request.form.get("rating"),
-            "book_id": book["_id"],
-            "created_by": session["user"],
-            "cover": request.form.get("cover")
-        }
-        mongo.db.reviews.insert_one(review)
-        flash("Your Review Was Successfully Added")
-
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    ages = list(mongo.db.age_groups.find().sort("age_group", 1))
-    return render_template(
-        "add_review.html", book=book, categories=categories, ages=ages)
+        categories = list(mongo.db.categories.find().sort("category_name", 1))
+        ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+        return render_template(
+            "add_review.html", book=book, categories=categories, ages=ages)
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
