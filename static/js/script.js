@@ -46,3 +46,7 @@ document.getElementById("author").addEventListener('keydown', function (e) {
 document.getElementById("isbn").addEventListener('keydown', function (e) {
   if (this.value.length === 0 && e.which === 32) e.preventDefault();
 });
+
+document.getElementById("query").addEventListener('keydown', function (e) {
+  if (this.value.length === 0 && e.which === 32) e.preventDefault();
+});
