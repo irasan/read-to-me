@@ -6,8 +6,12 @@
 
 <div class="row">
     {% for book in books %}
-    <div class="col s2">
-
+    <div id="cover" class="col s10 offset-s1 m2 ">
+            {% if book.cover|length %}
+            <img src="{{ book.cover }}" alt="book_cover">
+            {% else %}
+            <img src="../static/images/book-colored.png" alt="book_cover">
+            {% endif %}
     </div>
     <div class="divider"></div>
     <div class="col s9 section">
