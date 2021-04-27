@@ -33,3 +33,16 @@ $(document).ready(function(){
         });
     }
   });
+
+// validation for empty spaces inputs
+document.getElementById("title").addEventListener('keydown', function (e) {
+  if (this.value.length === 0 && e.which === 32) e.preventDefault();
+});
+
+document.getElementById("author").addEventListener('keydown', function (e) {
+  if (this.value.length === 0 && e.which === 32) e.preventDefault();
+});
+
+document.getElementById("isbn").addEventListener('keydown', function (e) {
+  if (this.value.length === 0 && e.which === 32) e.preventDefault();
+});
