@@ -325,7 +325,8 @@ def get_categories():
         username = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
         if username == "admin":
-            categories = list(mongo.db.categories.find().sort("category_name", 1))
+            categories = list(
+                mongo.db.categories.find().sort("category_name", 1))
             return render_template("categories.html", categories=categories)
 
     return render_template("unauthorised_error.html")
