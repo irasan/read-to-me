@@ -78,7 +78,7 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(
+                flash("Welcome, {}!".format(
                     request.form.get("username")))
                 return redirect(url_for(
                     "profile", username=session["user"]))
@@ -101,7 +101,6 @@ def display_books(age_group):
     ratings = list(mongo.db.reviews.aggregate(
         [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
 
-    print(ratings)
     for book in books:
         id = ObjectId(book["_id"])
         cover = mongo.db.covers.find_one(
@@ -115,11 +114,11 @@ def display_books(age_group):
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
+    if "user" in session:
+        # grab the session user's username from db
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
 
-    if session["user"]:
         revs = mongo.db.reviews.find({"created_by": username})
         users_revs = []
         # this part was borrowed from StackOverflow (see Readme.md)
@@ -151,49 +150,51 @@ def logout():
 
 @app.route("/add_review/", methods=["GET", "POST"])
 def add_review():
-    if request.method == "POST":
-        existing_book = mongo.db.books.find_one(
-            {"title": request.form.get("title").lower()})
+    if "user" in session:
+        if request.method == "POST":
+            existing_book = mongo.db.books.find_one(
+                {"title": request.form.get("title").lower()})
 
-        # if there's no such book in the db yet, it'll be added:
-        if not existing_book:
-            book = {
-                "title": request.form.get("title").lower(),
-                "author": request.form.get("author"),
-                "isbn": request.form.get("isbn"),
-                "category": request.form.getlist("category_name"),
-                "age": request.form.getlist("age_group"),
+            # if there's no such book in the db yet, it'll be added:
+            if not existing_book:
+                book = {
+                    "title": request.form.get("title").lower(),
+                    "author": request.form.get("author"),
+                    "isbn": request.form.get("isbn"),
+                    "category": request.form.getlist("category_name"),
+                    "age": request.form.getlist("age_group"),
+                }
+                mongo.db.books.insert_one(book)
+
+            book_id = mongo.db.books.find_one(
+                {"title": request.form.get("title").lower()})["_id"]
+
+            # create document for covers collection
+            cover = {
+                "cover": request.form.get("cover"),
+                "book_id": book_id
             }
-            mongo.db.books.insert_one(book)
+            mongo.db.covers.insert_one(cover)
 
-        book_id = mongo.db.books.find_one(
-            {"title": request.form.get("title").lower()})["_id"]
+            # create document for reviews collection
+            review = {
+                "review": request.form.get("review"),
+                "rating": request.form.get("rating"),
+                "book_id": book_id,
+                "created_by": session["user"]
+            }
+            mongo.db.reviews.insert_one(review)
 
-        # create document for covers collection
-        cover = {
-            "cover": request.form.get("cover"),
-            "book_id": book_id
-        }
-        mongo.db.covers.insert_one(cover)
+            flash("Your Review Was Successfully Added")
+            return render_template("home.html")
 
-        # create document for reviews collection
-        review = {
-            "review": request.form.get("review"),
-            "rating": request.form.get("rating"),
-            "book_id": book_id,
-            "created_by": session["user"]
-        }
-        mongo.db.reviews.insert_one(review)
-
-        flash("Your Review Was Successfully Added")
-        return render_template("home.html")
-
-    book = mongo.db.books.find_one(
-            {"title": request.form.get("title")})
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    ages = list(mongo.db.age_groups.find().sort("age_group", 1))
-    return render_template(
-        "add_review.html", book=book, categories=categories, ages=ages)
+        book = mongo.db.books.find_one(
+                {"title": request.form.get("title")})
+        categories = list(mongo.db.categories.find().sort("category_name", 1))
+        ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+        return render_template(
+            "add_review.html", book=book, categories=categories, ages=ages)
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/add_review/<age_group>", methods=["GET", "POST"])
@@ -274,82 +275,112 @@ def add_review_by_title(book_id):
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
 def edit_review(review_id):
-    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-    book = mongo.db.books.find_one({"_id": ObjectId(review["book_id"])})
+    if "user" in session:
+        review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+        book = mongo.db.books.find_one({"_id": ObjectId(review["book_id"])})
 
-    if request.method == "POST":
-        updated_book = {
-            "title": book["title"],
-            "author": request.form.get("author"),
-            "isbn": request.form.get("isbn"),
-            "category": request.form.getlist("category_name"),
-            "age": request.form.getlist("age_group")
-        }
-        mongo.db.books.update(
-            {"_id": ObjectId(book["_id"])}, updated_book)
+        if request.method == "POST":
+            updated_book = {
+                "title": book["title"],
+                "author": request.form.get("author"),
+                "isbn": request.form.get("isbn"),
+                "category": request.form.getlist("category_name"),
+                "age": request.form.getlist("age_group")
+            }
+            mongo.db.books.update(
+                {"_id": ObjectId(book["_id"])}, updated_book)
 
-        updated_review = {
-            "review": request.form.get("review"),
-            "rating": request.form.get("rating"),
-            "book_id": book["_id"],
-            "created_by": session["user"]
-        }
-        mongo.db.reviews.update(
-            {"_id": ObjectId(review_id)}, updated_review)
-        flash("Your Review Was Successfully Edited")
-        return redirect(url_for("profile", username=session["user"]))
+            updated_review = {
+                "review": request.form.get("review"),
+                "rating": request.form.get("rating"),
+                "book_id": book["_id"],
+                "created_by": session["user"]
+            }
+            mongo.db.reviews.update(
+                {"_id": ObjectId(review_id)}, updated_review)
+            flash("Your Review Was Successfully Edited")
+            return redirect(url_for("profile", username=session["user"]))
 
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    ages = list(mongo.db.age_groups.find().sort("age_group", 1))
-    return render_template(
-        "edit_review.html", review=review, book=book, categories=categories, ages=ages)
+        categories = list(mongo.db.categories.find().sort("category_name", 1))
+        ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+        return render_template(
+            "edit_review.html", review=review, book=book, categories=categories, ages=ages)
+
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/delete_review/<review_id>")
 def delete_review(review_id):
-    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
-    flash("Review Was Successfully Deleted")
-    return render_template("home.html")
+    if "user" in session:
+        mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+        flash("Review Was Successfully Deleted")
+        return render_template("home.html")
+
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/get_categories")
 def get_categories():
-    categories = list(mongo.db.categories.find().sort("category_name", 1))
-    return render_template("categories.html", categories=categories)
+    if "user" in session:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        if username == "admin":
+            categories = list(mongo.db.categories.find().sort("category_name", 1))
+            return render_template("categories.html", categories=categories)
+
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
-    if request.method == "POST":
-        category = {
-            "category_name": request.form.get("category_name")
-        }
-        mongo.db.categories.insert_one(category)
-        flash("New Category Added")
-        return redirect(url_for("get_categories"))
+    if "user" in session:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        if username == "admin":
+            if request.method == "POST":
+                category = {
+                    "category_name": request.form.get("category_name")
+                }
+                mongo.db.categories.insert_one(category)
+                flash("New Category Added")
+                return redirect(url_for("get_categories"))
 
-    return render_template("add_category.html")
+            return render_template("add_category.html")
+
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
-    if request.method == "POST":
-        submit = {
-            "category_name": request.form.get("category_name")
-        }
-        mongo.db.categories.update({"_id": ObjectId(category_id)}, submit)
-        flash("Category Successfully Updated")
-        return redirect(url_for("get_categories"))
+    if "user" in session:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        if username == "admin":
+            if request.method == "POST":
+                submit = {
+                    "category_name": request.form.get("category_name")
+                }
+                mongo.db.categories.update(
+                    {"_id": ObjectId(category_id)}, submit)
+                flash("Category Successfully Updated")
+                return redirect(url_for("get_categories"))
 
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-    return render_template("edit_category.html", category=category)
+            category = mongo.db.categories.find_one(
+                {"_id": ObjectId(category_id)})
+            return render_template("edit_category.html", category=category)
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
-    mongo.db.categories.remove({"_id": ObjectId(category_id)})
-    flash("Category Successfully Deleted")
-    return redirect(url_for("get_categories"))
+    if "user" in session:
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        if username == "admin":
+            mongo.db.categories.remove({"_id": ObjectId(category_id)})
+            flash("Category Successfully Deleted")
+            return redirect(url_for("get_categories"))
+    return render_template("unauthorised_error.html")
 
 
 @app.route("/book_reviews/<book_id>")
