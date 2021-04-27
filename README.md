@@ -72,3 +72,5 @@ However, combining two dictionaries into one was done using new functionality of
 Styling of search field in the navbar was inspired by this [post:]
 (https://stackoverflow.com/questions/42126743/aligning-search-input-in-navbar-with-materialize)
 Custom error page handling was taken from [Flask documentation:] (https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
+Don't allow inputs that start with [white spaces:](https://stackoverflow.com/questions/54020591/not-allow-space-as-a-first-input-character-in-input-field)
+Display confirm messages for delete buttons [here:](https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete)
