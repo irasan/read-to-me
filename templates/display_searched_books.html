@@ -4,36 +4,40 @@
 {% if books|length > 0 %}
 <h3 class="center-align purple-text">Search results for "{{ query }}"</h3>
 
-<div class="row">
-    {% for book in books %}
-    <div id="cover" class="col s10 offset-s1 m2 ">
+{% for book in books %}
+<!-- <div class="row"> -->
+    <div class="divider"></div>
+    <div class="row section">
+        <div id="cover" class="col s10 m2 ">
             {% if book.cover|length %}
             <img src="{{ book.cover }}" alt="book_cover">
             {% else %}
             <img src="../static/images/book-colored.png" alt="book_cover">
             {% endif %}
-    </div>
-    <div class="divider"></div>
-    <div class="col s9 section">
-        <a href="{{ url_for('book_reviews', book_id=book._id) }}">
-        <h5 style="text-transform: uppercase;">{{ book.title }} </h5></a>
-        <h6> {{ book.author }} </h6>
-        <p>Categories: {% for item in book.category %}
-        <span>{{ item }} &middot </span>
-        {% endfor %}
-        </p>
-    </div>
+        </div>
+
+        <div class="col s12 m9">
+            <a href="{{ url_for('book_reviews', book_id=book._id) }}">
+                <h5 style="text-transform: uppercase;">{{ book.title }} </h5>
+            </a>
+            <h5> {{ book.author }} </h5>
+            <p>Categories: {% for item in book.category %}
+                <span>{{ item }} &middot </span>
+                {% endfor %}
+            </p>
+        </div>
     <div class="col s1">
         <p>
-        Rating: {% for item in ratings %}
+            Rating: {% for item in ratings %}
             {% if item._id == book._id %}
-                {{ item.average }}
+            {{ item.average }}
             {% endif %}
-        {% endfor %}
-    </p>
+            {% endfor %}
+        </p>
     </div>
-    {% endfor %}
 </div>
+    {% endfor %}
+<!-- </div> -->
 
 {% else %}
 <h3 class="center-align purple-text">No results for "{{ query }}"</h3>
