@@ -179,7 +179,7 @@ def add_review():
             # create document for reviews collection
             review = {
                 "review": request.form.get("review"),
-                "rating": request.form.get("rating"),
+                "rating": int(request.form.get("rating")),
                 "book_id": book_id,
                 "created_by": session["user"]
             }
@@ -204,6 +204,7 @@ def add_review_by_age(age_group):
             existing_book = mongo.db.books.find_one(
                 {"title": request.form.get("title").lower()})
 
+            # if there's no such book in the db yet, it'll be added:
             if not existing_book:
                 book = {
                     "title": request.form.get("title").lower(),
@@ -217,14 +218,22 @@ def add_review_by_age(age_group):
             book_id = mongo.db.books.find_one(
                 {"title": request.form.get("title").lower()})["_id"]
 
+            # create document for reviews collection
             review = {
                 "review": request.form.get("review"),
-                "rating": request.form.get("rating"),
+                "rating": int(request.form.get("rating")),
                 "book_id": book_id,
                 "created_by": session["user"]
             }
-
             mongo.db.reviews.insert_one(review)
+
+            # create document for covers collection
+            cover = {
+                "cover": request.form.get("cover"),
+                "book_id": book_id
+            }
+            mongo.db.covers.insert_one(cover)
+
             flash("Your Review Was Successfully Added")
             return render_template("home")
 
@@ -256,14 +265,21 @@ def add_review_by_title(book_id):
             mongo.db.books.update(
                 {"_id": ObjectId(book["_id"])}, updated_book)
 
+            # create document for reviews collection
             review = {
                 "review": request.form.get("review"),
-                "rating": request.form.get("rating"),
+                "rating": int(request.form.get("rating")),
                 "book_id": book["_id"],
-                "created_by": session["user"],
-                "cover": request.form.get("cover")
+                "created_by": session["user"]
             }
             mongo.db.reviews.insert_one(review)
+
+            # create document for covers collection
+            cover = {
+                "cover": request.form.get("cover"),
+                "book_id": book_id
+            }
+            mongo.db.covers.insert_one(cover)
             flash("Your Review Was Successfully Added")
 
         categories = list(mongo.db.categories.find().sort("category_name", 1))
@@ -278,6 +294,8 @@ def edit_review(review_id):
     if "user" in session:
         review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
         book = mongo.db.books.find_one({"_id": ObjectId(review["book_id"])})
+        cover = mongo.db.books.find_one(
+            {"book_id": ObjectId(review["book_id"])})
 
         if request.method == "POST":
             updated_book = {
@@ -292,16 +310,25 @@ def edit_review(review_id):
 
             updated_review = {
                 "review": request.form.get("review"),
-                "rating": request.form.get("rating"),
+                "rating": int(request.form.get("rating")),
                 "book_id": book["_id"],
                 "created_by": session["user"]
             }
             mongo.db.reviews.update(
                 {"_id": ObjectId(review_id)}, updated_review)
-            flash("Your Review Was Successfully Edited")
+
+            updated_cover = {
+                    "cover": request.form.get("cover"),
+                    "book_id": book["_id"]
+                }
+            mongo.db.covers.update(
+                {"book_id": ObjectId(book["_id"])}, updated_cover)
+
+            flash("Your Review Was Successfully Updated")
             return redirect(url_for("profile", username=session["user"]))
 
-        categories = list(mongo.db.categories.find().sort("category_name", 1))
+        categories = list(
+            mongo.db.categories.find().sort("category_name", 1))
         ages = list(mongo.db.age_groups.find().sort("age_group", 1))
         return render_template(
             "edit_review.html", review=review, book=book, categories=categories, ages=ages)
