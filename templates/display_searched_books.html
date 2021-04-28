@@ -5,38 +5,35 @@
 <h3 class="center-align deep-purple-text">Search results for "{{ query }}"</h3>
 
 {% for book in books %}
-<!-- <div class="row"> -->
-    <div class="divider"></div>
-    <div class="row section">
-        <div id="cover" class="col s10 m2">
-            {% if book.cover|length %}
-            <img src="{{ book.cover }}" alt="book_cover">
-            {% else %}
-            <img src="../static/images/book-colored.png" alt="book_cover">
-            {% endif %}
-        </div>
+<div class="divider"></div>
+<div class="row section">
+    <div id="cover" class="col s10 m2">
+        {% if book.cover|length %}
+        <img src="{{ book.cover }}" alt="book_cover">
+        {% else %}
+        <img src="../static/images/book-colored.png" alt="book_cover">
+        {% endif %}
+    </div>
 
-        <div class="col s12 m9">
-            <a href="{{ url_for('book_reviews', book_id=book._id) }}">
-                <h5 class="cyan-text text-darken-2" style="text-transform: uppercase;">{{ book.title }} </h5>
-            </a>
-            <h5> {{ book.author }} </h5>
-            <p>Categories: {% for item in book.category %}
-                <span>{{ item }} &middot </span>
-                {% endfor %}
-            </p>
-        </div>
-    <div class="col s1">
-        <p>
-            Rating: {% for item in ratings %}
-            {% if item._id == book._id %}
-            {{ item.average }}
-            {% endif %}
+    <div class="col s12 m9">
+        <a href="{{ url_for('book_reviews', book_id=book._id) }}">
+            <h5 class="cyan-text text-darken-2" style="text-transform: uppercase;">{{ book.title }} </h5>
+        </a>
+        <h5> {{ book.author }} </h5>
+        <p>Categories: {% for item in book.category %}
+            <span>{{ item }} &middot </span>
             {% endfor %}
         </p>
     </div>
+    <div class="col s1">
+        Rating: {% for item in ratings %}
+        {% if item._id == book._id %}
+        {{ item.average }}
+        {% endif %}
+        {% endfor %}
+    </div>
 </div>
-    {% endfor %}
+{% endfor %}
 <!-- </div> -->
 
 {% else %}
