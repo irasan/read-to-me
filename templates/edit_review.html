@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 class="purple-text center-align">Edit Review</h3>
+<h3 class="deep-purple-text center-align">Edit Review</h3>
 
 <div class="row">
     <form class="col s12" method="POST" action="{{ url_for('edit_review', review_id=review._id) }}">
         <div class="row">
             <!-- book title -->
             <div class="input-field col s12">
-                <i class="fas fa-book prefix green-text"></i>
+                <i class="fas fa-book prefix teal-text text-accent-4"></i>
                 <input id="title" name="title" value="{{ book.title }}" type="text" class="validate" minlength="3"
                     maxlength="40" required>
                 <label for="title">Book Title</label>
             </div>
             <!-- book author -->
             <div class="input-field col s12">
-                <i class="fas fa-user prefix orange-text text-darken-2"></i>
+                <i class="fas fa-user prefix amber-text text-accent-2"></i>
                 <input id="author" name="author" value="{{ book.author }}" type="text" minlength="5" class="validate"
                     required>
                 <label for="author">Author</label>
             </div>
             <!-- ISBN -->
             <div class="input-field col s12">
-                <i class="fab fa-draft2digital prefix cyan-text text-darken-2"></i>
+                <i class="fab fa-draft2digital prefix deep-purple-text"></i>
                 <input id="isbn" name="isbn" value="{{ book.isbn }}" type="text" class="validate">
                 <label for="isbn">ISBN</label>
             </div>
             <!-- book review -->
             <div class="input-field col s12">
-                <i class="fas fa-file-alt prefix red-text"></i>
+                <i class="fas fa-file-alt prefix red-text text-accent-2"></i>
                 <textarea id="review" name="review" type="text" class="materialize-textarea validate"
                     data-length="250"> {{- review.review -}} </textarea>
                 <label for="review">Review</label>
@@ -90,11 +90,11 @@
         <div class="row">
             <div class="col s12 center-align">
                 <!-- cancel button -->
-                <a href="{{ url_for('profile', username=session['user']) }}" class="btn-large orange">
+                <a href="{{ url_for('profile', username=session['user']) }}" class="btn-large red accent-2">
                     Cancel <i class="fas fa-times-circle right"></i>
                 </a>
                 <!-- submit button -->
-                <button type="submit" class="btn-large purple darken-1">
+                <button type="submit" class="btn-large teal accent-4">
                     Edit Review <i class="fas fa-edit right"></i>
                 </button>
             </div>

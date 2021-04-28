@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4 style="text-transform: uppercase;" class="center-align purple-text"> {{ book.title }}</h4>
-<h5 class="center-align green-text"> {{ book.author }}</h5>
+<h4 style="text-transform: uppercase;" class="center-align deep-purple-text"> {{ book.title }}</h4>
+<h5 class="center-align cyan-text text-darken-2"> {{ book.author }}</h5>
 <p> ISBN: {{ book.isbn }} <br>
     Categories: {% for item in book.category %}
         <span>{{ item }} &middot </span>
@@ -13,7 +13,7 @@
             {% endif %}
         {% endfor %}</p>
 <a href="{{ url_for('add_review_by_title', book_id=book._id) }}" id="sticky_button"
-    class="btn-floating btn-large pulse waves-effect waves-light red">
+    class="btn-floating btn-large pulse waves-effect waves-light deep-purple">
     <i class="fas fa-plus"></i></a>
 
 {% for rev in reviews %}
@@ -27,7 +27,7 @@
             {% endif %}
         </div>
         <div class="col s10 offset-s1 m8">
-            <h6 class="orange-text accent-4"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
+            <h6 class="red-text text-accent-2"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
             <p>
                 {{ rev.review }} </p>
         </div>
