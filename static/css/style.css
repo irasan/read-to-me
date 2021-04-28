@@ -21,6 +21,12 @@ h4 {
     padding-top: 20px;
 } */
 
+#heading {
+    
+    float: right;
+    right: 0;
+}
+
 .btn-floating {
     margin-left: 10px;
 }
@@ -42,10 +48,10 @@ h4 {
     float: right;
 }
 
-.f-grid {
+/* .f-grid {
   display: flex;
   flex-flow: row wrap;
-}
+} */
 
 .nav-wrapper .input-field input[type=search] {
   height: 44px;

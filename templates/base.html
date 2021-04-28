@@ -34,7 +34,7 @@
                     </div>
 
                     <!-- large screen sidenav -->
-                    <div class="col s10">
+                    <div class="col s10 offset-4" id="heading">
                         <ul class="right hide-on-med-and-down">
                             <!-- search input -->
                             <li>
@@ -46,17 +46,17 @@
                                     </div>
                                 </form>
                             </li>
-                            <li><a href="{{ url_for('home') }}">Home</a></li>
+                            <!-- <li><a class="flow-text" href="{{ url_for('home') }}">Home</a></li> -->
                             {% if session.user %}
-                            <li><a href="{{ url_for('add_review') }}">Add Review</a></li>
-                            <li><a href="{{ url_for('profile', username=session['user']) }}">My Reviews</a></li>
+                            <li><a class="flow-text" href="{{ url_for('add_review') }}">Add Review</a></li>
+                            <li><a class="flow-text" href="{{ url_for('profile', username=session['user']) }}">My Reviews</a></li>
                             {% if session.user|lower == "admin"|lower %}
-                            <li><a href="{{ url_for('get_categories') }}">Manage Categories</a></li>
+                            <li><a class="flow-text" href="{{ url_for('get_categories') }}">Categories</a></li>
                             {% endif %}
-                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                            <li><a class="flow-text" href="{{ url_for('logout') }}">Logout</a></li>
                             {% else %}
-                            <li><a href="{{ url_for('login') }}">Login</a></li>
-                            <li><a href="{{ url_for('register') }}">Register</a></li>
+                            <li><a class="flow-text" href="{{ url_for('login') }}">Login</a></li>
+                            <li><a class="flow-text" href="{{ url_for('register') }}">Register</a></li>
                             {% endif %}
                         </ul>
                     </div>
