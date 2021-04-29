@@ -10,17 +10,14 @@ body {
 #logo{
     font-family: 'Gloria Hallelujah', serif;
     margin-left: 10px;
+    font-size: 1.4rem;
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (min-width: 350px) {
   #logo {
     font-size: 1.8rem;
   }
 }
-/* 
-h4 {
-    padding-top: 20px;
-} */
 
 #heading {
     
