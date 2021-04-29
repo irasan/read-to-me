@@ -61,6 +61,7 @@ After thorough consideration of users' and developer's goals, the following [wir
 #### Fonts
 
 #### Icons
+Smiley faces for different ratings were downloaded from [here:](https://freeicons.io/)
 
 #### Colors and Styling
 
