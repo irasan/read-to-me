@@ -228,11 +228,18 @@ def add_review_by_age(age_group):
             mongo.db.reviews.insert_one(review)
 
             # create document for covers collection
-            cover = {
+            updated_cover = {
                 "cover": request.form.get("cover"),
                 "book_id": book_id
             }
-            mongo.db.covers.insert_one(cover)
+            cover = mongo.db.covers.find_one(
+                {"book_id": ObjectId(book_id)})
+            if not cover:
+                mongo.db.covers.insert_one(
+                    {"book_id": ObjectId(book["_id"])}, updated_cover)
+            else:
+                mongo.db.covers.update(
+                    {"book_id": ObjectId(book["_id"])}, updated_cover)
 
             flash("Your Review Was Successfully Added")
             return render_template("home")
@@ -252,6 +259,9 @@ def add_review_by_title(book_id):
     if "user" in session:
         book = mongo.db.books.find_one(
                 {"_id": ObjectId(book_id)})
+        cover = mongo.db.covers.find_one(
+            {"book_id": ObjectId(book_id)})
+
         if request.method == "POST":
 
             if request.method == "POST":
@@ -275,11 +285,16 @@ def add_review_by_title(book_id):
             mongo.db.reviews.insert_one(review)
 
             # create document for covers collection
-            cover = {
+            updated_cover = {
                 "cover": request.form.get("cover"),
                 "book_id": book_id
             }
-            mongo.db.covers.insert_one(cover)
+            if not cover:
+                mongo.db.covers.insert_one(
+                    {"book_id": ObjectId(book["_id"])}, updated_cover)
+            else:
+                mongo.db.covers.update(
+                    {"book_id": ObjectId(book["_id"])}, updated_cover)
             flash("Your Review Was Successfully Added")
 
         categories = list(mongo.db.categories.find().sort("category_name", 1))
@@ -294,7 +309,7 @@ def edit_review(review_id):
     if "user" in session:
         review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
         book = mongo.db.books.find_one({"_id": ObjectId(review["book_id"])})
-        cover = mongo.db.books.find_one(
+        cover = mongo.db.covers.find_one(
             {"book_id": ObjectId(review["book_id"])})
 
         if request.method == "POST":
@@ -321,8 +336,12 @@ def edit_review(review_id):
                     "cover": request.form.get("cover"),
                     "book_id": book["_id"]
                 }
-            mongo.db.covers.update(
-                {"book_id": ObjectId(book["_id"])}, updated_cover)
+            if not cover:
+                mongo.db.covers.insert_one(
+                    {"book_id": ObjectId(book["_id"])}, updated_cover)
+            else:
+                mongo.db.covers.update(
+                    {"book_id": ObjectId(book["_id"])}, updated_cover)
 
             flash("Your Review Was Successfully Updated")
             return redirect(url_for("profile", username=session["user"]))
