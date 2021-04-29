@@ -424,6 +424,9 @@ def delete_category(category_id):
 @app.route("/book_reviews/<book_id>")
 def book_reviews(book_id):
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+    cover = mongo.db.covers.find_one({"book_id": ObjectId(book_id)})
+    if cover is not None:
+        book["cover"] = cover["cover"]
     reviews = mongo.db.reviews.find({"book_id": ObjectId(book_id)})
     ratings = list(mongo.db.reviews.aggregate(
         [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))

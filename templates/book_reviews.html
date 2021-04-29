@@ -1,37 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4 style="text-transform: uppercase;" class="center-align deep-purple-text"> {{ book.title }}</h4>
-<h5 class="center-align cyan-text text-darken-2"> {{ book.author }}</h5>
-<p> ISBN: {{ book.isbn }} <br>
-    Categories: {% for item in book.category %}
-        <span>{{ item }} &middot </span>
-        {% endfor %}</p>
+<div class="row valign-wrapper">
+    <div id="cover" class="col s10 m2">
+        {% if book.cover|length %}
+        <img src="{{ book.cover }}" alt="book_cover">
+        {% else %}
+        <img src="../static/images/book-colored.png" alt="book_cover">
+        {% endif %}
+    </div>
+    <div class="col s12 m9">
+        <h4 style="text-transform: uppercase;" class="deep-purple-text"> {{ book.title }}</h4>
+        <h5 class="cyan-text text-darken-2"> {{ book.author }}</h5>
+        <p> ISBN: {{ book.isbn }} <br>
+            Categories: {% for item in book.category %}
+            <span>{{ item }} &middot </span>
+            {% endfor %}</p>
+    </div>
+    <div class="col s10 m1">
         <p>Rating: {% for item in ratings %}
             {% if item._id == book._id %}
-                {{ item.average }}
+            {{ item.average }}
             {% endif %}
-        {% endfor %}</p>
+            {% endfor %}</p>
+    </div>
+</div>
 <a href="{{ url_for('add_review_by_title', book_id=book._id) }}" id="sticky_button"
     class="btn-floating btn-large pulse waves-effect waves-light deep-purple">
     <i class="fas fa-plus"></i></a>
 
 {% for rev in reviews %}
 <div class="divider"></div>
-    <div class="section row">
-        <div class="col s10 offset-s1 m4 ">
-            {% if rev.cover|length %}
-            <img class="responsive-img" src="{{ rev.cover }}" alt="book_cover">
-            {% else %}
-            <img class="responsive-img" src="../static/images/book-colored.png" alt="book_cover">
-            {% endif %}
-        </div>
-        <div class="col s10 offset-s1 m8">
-            <h6 class="red-text text-accent-2"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
-            <p>
-                {{ rev.review }} </p>
-        </div>
+<div class="section row">
+    <div class="col s10 offset-s1 m4 ">
+        {% if rev.cover|length %}
+        <img class="responsive-img" src="{{ rev.cover }}" alt="book_cover">
+        {% else %}
+        <img class="responsive-img" src="../static/images/book-colored.png" alt="book_cover">
+        {% endif %}
     </div>
+    <div class="col s10 offset-s1 m8">
+        <h6 class="red-text text-accent-2"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
+        <p>
+            {{ rev.review }} </p>
+    </div>
+</div>
 
 {% endfor %}
 
