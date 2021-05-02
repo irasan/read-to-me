@@ -123,28 +123,30 @@ def display_books(age_group):
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
+    # grab the session user's username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
     if "user" in session:
-        # grab the session user's username from db
-        username = mongo.db.users.find_one(
-            {"username": session["user"]})["username"]
+        if session["user"] == username:
+            revs = mongo.db.reviews.find({"created_by": username})
+            users_revs = []
+            # this part was borrowed from StackOverflow (see Readme.md)
+            book_ids = []
+            for rev in revs:
+                book_ids.append((rev['_id'], rev['book_id']))
 
-        revs = mongo.db.reviews.find({"created_by": username})
-        users_revs = []
-        # this part was borrowed from StackOverflow (see Readme.md)
-        book_ids = []
-        for rev in revs:
-            book_ids.append((rev['_id'], rev['book_id']))
+            for id, item in book_ids:
+                book = mongo.db.books.find_one(
+                    {"_id": item}, {"title": 1, "author": 1})
+                review = mongo.db.reviews.find_one(
+                    {"_id": id}, {"review_id": 1, "review": 1, "rating": 1})
+                merged = {**book, **review}
+                users_revs.append(merged)
 
-        for id, item in book_ids:
-            book = mongo.db.books.find_one(
-                {"_id": item}, {"title": 1, "author": 1})
-            review = mongo.db.reviews.find_one(
-                {"_id": id}, {"review_id": 1, "review": 1, "rating": 1})
-            merged = {**book, **review}
-            users_revs.append(merged)
-
-        return render_template(
-            "profile.html", users_revs=users_revs)
+            return render_template(
+                "profile.html", users_revs=users_revs)
+        return redirect(url_for("home"))
 
     return redirect(url_for("login"))
 
