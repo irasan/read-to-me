@@ -122,10 +122,18 @@ Upon completion of the writing process, developer used [W3C CSS Validation Servi
 Most common path through the website: Home -> Age group -> Book
 
 ### Testing on Different Browsers and Devices
-The website was tested on different browsers and proved to be issue-free on the following browsers:
+The website was tested and proved to be issue-free on the following browsers:
 * Chrome;
 * Edge;
+* Firefox;
 * Safari.
+
+The website was also tested on an IOS (Iphone 10) and Android (Pixel 4) platforms. There were detected a few issues, in particular:
+* logo in the header wasn't displayed properly;
+* display of books and their reviews (book_reviews.html) had some flaws;
+* login and register buttons in the unauthorised_error.html were too big;
+* profile.html wasn't nicely formatted;
+
 
 ## How To Run This Project Locally
 To clone this project into GitHub, you will need:
@@ -172,3 +180,4 @@ Styling of search field in the navbar was inspired by this [post:]
 Custom error page handling was taken from [Flask documentation:] (https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
 Don't allow inputs that start with [white spaces:](https://stackoverflow.com/questions/54020591/not-allow-space-as-a-first-input-character-in-input-field)
 Display confirm messages for delete buttons [here:](https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete)
+Nicely formatted rows in collapsible [here:](https://github.com/Dogfalo/materialize/issues/3325)

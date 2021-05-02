@@ -90,6 +90,12 @@ body {
     padding: 0 10px;
 }
 
+@media screen and (max-width: 640px) {
 .collapsible-row {
     display: block;
+}
+}
+
+.btn-small {
+    margin-top: 10px;
 }
