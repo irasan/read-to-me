@@ -19,6 +19,10 @@ body {
   }
 }
 
+.smiley {
+    margin-left: 20px;
+}
+
 #heading {
     
     float: right;
@@ -45,11 +49,6 @@ body {
     height: 180px;
     float: right;
 }
-
-/* .f-grid {
-  display: flex;
-  flex-flow: row wrap;
-} */
 
 .nav-wrapper .input-field input[type=search] {
   height: 44px;

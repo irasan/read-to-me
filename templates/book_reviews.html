@@ -32,23 +32,22 @@
 {% for rev in reviews %}
 <div class="divider"></div>
 <div class="section row valign-wrapper">
-    <div class="col s10 offset-s1 m4 center-align">
-        {% if rev.rating|int < 3 %}
-        <img class="responsive-img" src="../static/images/unhappy.png" alt="sad_face">
-        {% elif rev.rating|int < 5 %}
-        <img class="responsive-img" src="../static/images/disappointed.png" alt="disappointed_face">
-        {% elif rev.rating|int < 7 %}
-        <img class="responsive-img" src="../static/images/neutral.png" alt="neutral_face">
-        {% elif rev.rating|int < 9 %}
-        <img class="responsive-img" src="../static/images/happy.png" alt="neutral_face">
-        {% else %}
-        <img class="responsive-img" src="../static/images/very-happy.png" alt="very_happy_face">
-        {% endif  %}
-    </div>
-    <div class="col s10 offset-s1 m8">
+    <div class="col s10 m10">
         <h6 class="red-text text-accent-2"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
-        <p>
-            {{ rev.review }} </p>
+        <p> {{ rev.review }} </p>
+    </div>
+    <div class="col s2 m2 offset-1 center-align">
+        {% if rev.rating|int < 3 %}
+        <img class="responsive-img smiley" src="../static/images/unhappy.png" alt="sad_face">
+        {% elif rev.rating|int < 5 %}
+        <img class="responsive-img smiley" src="../static/images/disappointed.png" alt="disappointed_face">
+        {% elif rev.rating|int < 7 %}
+        <img class="responsive-img smiley" src="../static/images/neutral.png" alt="neutral_face">
+        {% elif rev.rating|int < 9 %}
+        <img class="responsive-img smiley" src="../static/images/happy.png" alt="neutral_face">
+        {% else %}
+        <img class="responsive-img smiley" src="../static/images/very-happy.png" alt="very_happy_face">
+        {% endif  %}
     </div>
 </div>
 
