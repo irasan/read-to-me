@@ -20,7 +20,7 @@
     </div>
     <div class="col s2 m1">
         <p>Rating: {% for item in ratings %}
-            {% if item._id == book._id %}
+            {% if item._id == book._id %} 
             {{ "%.1f"|format(item.average) }}
             {% endif %}
             {% endfor %}</p>
