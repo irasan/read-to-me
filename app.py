@@ -32,12 +32,15 @@ def search_template():
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
-    books = list(mongo.db.books.find({"$text": {"$search": query}}))
-    ratings = list(mongo.db.reviews.aggregate(
-        [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
+    if query:
+        books = list(mongo.db.books.find({"$text": {"$search": query}}))
+        ratings = list(mongo.db.reviews.aggregate(
+            [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
 
-    return render_template(
-        "display_searched_books.html", books=books, query=query, ratings=ratings)
+        return render_template(
+            "display_searched_books.html", books=books, query=query, ratings=ratings)
+    else:
+        return redirect(url_for("home"))
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -302,47 +305,50 @@ def add_review_by_title(book_id):
 def edit_review(review_id):
     if "user" in session:
         review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-        book = mongo.db.books.find_one({"_id": ObjectId(review["book_id"])})
-        cover = mongo.db.covers.find_one(
-            {"book_id": ObjectId(review["book_id"])})
+        if session["user"] == review['created_by']:
+            book = mongo.db.books.find_one(
+                {"_id": ObjectId(review["book_id"])})
+            cover = mongo.db.covers.find_one(
+                {"book_id": ObjectId(review["book_id"])})
 
-        if request.method == "POST":
-            updated_book = {
-                "title": book["title"],
-                "author": request.form.get("author"),
-                "isbn": request.form.get("isbn"),
-                "category": request.form.getlist("category_name"),
-                "age": request.form.getlist("age_group")
-            }
-            mongo.db.books.update(
-                {"_id": ObjectId(book["_id"])}, updated_book)
-
-            updated_review = {
-                "review": request.form.get("review"),
-                "rating": int(request.form.get("rating")),
-                "book_id": book["_id"],
-                "created_by": session["user"]
-            }
-            mongo.db.reviews.update(
-                {"_id": ObjectId(review_id)}, updated_review)
-
-            if not cover:
-                updated_cover = {
-                    "cover": request.form.get("cover"),
-                    "book_id": book["_id"]
+            if request.method == "POST":
+                updated_book = {
+                    "title": book["title"],
+                    "author": request.form.get("author"),
+                    "isbn": request.form.get("isbn"),
+                    "category": request.form.getlist("category_name"),
+                    "age": request.form.getlist("age_group")
                 }
-                mongo.db.covers.insert_one(
-                    {"book_id": ObjectId(book["_id"])}, updated_cover)
+                mongo.db.books.update(
+                    {"_id": ObjectId(book["_id"])}, updated_book)
 
-            flash("Your Review Was Successfully Updated")
-            return redirect(url_for("profile", username=session["user"]))
+                updated_review = {
+                    "review": request.form.get("review"),
+                    "rating": int(request.form.get("rating")),
+                    "book_id": book["_id"],
+                    "created_by": session["user"]
+                }
+                mongo.db.reviews.update(
+                    {"_id": ObjectId(review_id)}, updated_review)
 
-        categories = list(
-            mongo.db.categories.find().sort("category_name", 1))
-        ages = list(mongo.db.age_groups.find().sort("age_group", 1))
-        return render_template(
-            "edit_review.html", review=review, book=book, categories=categories, ages=ages)
+                if not cover:
+                    updated_cover = {
+                        "cover": request.form.get("cover"),
+                        "book_id": book["_id"]
+                    }
+                    mongo.db.covers.insert_one(
+                        {"book_id": ObjectId(book["_id"])}, updated_cover)
 
+                flash("Your Review Was Successfully Updated")
+                return redirect(url_for("profile", username=session["user"]))
+
+            categories = list(
+                mongo.db.categories.find().sort("category_name", 1))
+            ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+            return render_template(
+                "edit_review.html", review=review, book=book, categories=categories, ages=ages)
+
+        return redirect(url_for("home"))
     return render_template("unauthorised_error.html")
 
 

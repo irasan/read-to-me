@@ -26,7 +26,7 @@
     <div class="col s10 m1">
         Rating: {% for item in ratings %}
         {% if item._id == book._id %}
-        {{ item.average }}
+        {{ "%.1f"|format(item.average) }}
         {% endif %}
         {% endfor %}
     </div>
