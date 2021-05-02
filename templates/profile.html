@@ -9,26 +9,26 @@
        <ul class="collapsible">
             {% for item in users_revs %}
             <li>  
-                <div class="collapsible-header cyan lighten-5 valign-wrapper">
-                    <div class="col s12 m8 rev-wrapper">
-                    <h5 style="text-transform: uppercase;"><i class="material-icons">expand_more</i>{{ item.title}}</h5>
-                    <strong> {{ item.author}} </strong>
-                </div>
-                <div class="col s2">
-                        <strong id="rating">{{ item.rating}}<i class="far fa-star"></i></strong>
-                </div>
-                <div class="col s12 m3">
+                <div class="collapsible-header cyan lighten-5 row collapsible-row valign-wrapper">
+                    <div class="col s12 m8">
+                        <h5 style="text-transform: uppercase;"><i class="material-icons">expand_more</i>{{ item.title}}</h5>
+                        <strong> {{ item.author}} </strong>
+                    </div>
+                    <div class="col s12 m2">
+                        <strong>{{ item.rating}}<i class="far fa-star"></i></strong>
+                    </div>
+                    <div class="col s12 m2 center-align">
                         <a href="{{ url_for('delete_review', review_id=item._id) }}"
                             class="btn-small red accent-2" 
                             onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                         <a href="{{ url_for('edit_review', review_id=item._id) }}"
                             class="btn-small teal accent-4">Edit</a>
+                    </div>
                 </div>
-                </div>
-            <div class="collapsible-body"><span>{{ item.review}} </span></div>
-    </li>
-    {% endfor %}
-    </ul>
+                <div class="collapsible-body"><span>{{ item.review}} </span></div>
+            </li>
+        {% endfor %}
+        </ul>
     </div>
 </div>
 {% else %}
