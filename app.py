@@ -36,6 +36,12 @@ def search():
         books = list(mongo.db.books.find({"$text": {"$search": query}}))
         ratings = list(mongo.db.reviews.aggregate(
             [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
+        for book in books:
+            id = ObjectId(book["_id"])
+            cover = mongo.db.covers.find_one(
+                {"book_id": id})
+            if cover is not None:
+                book["cover"] = cover["cover"]
 
         return render_template(
             "display_searched_books.html", books=books, query=query, ratings=ratings)
@@ -297,7 +303,7 @@ def add_review_by_title(book_id):
         categories = list(mongo.db.categories.find().sort("category_name", 1))
         ages = list(mongo.db.age_groups.find().sort("age_group", 1))
         return render_template(
-            "add_review.html", book=book, categories=categories, ages=ages)
+            "add_review_by_title.html", book=book, categories=categories, ages=ages)
     return render_template("unauthorised_error.html")
 
 

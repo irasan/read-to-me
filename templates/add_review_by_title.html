@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="deep-purple-text center-align">Add a Review</h3>
+
+<div class="row">
+    <form class="col s12" method="POST" action="{{ url_for('add_review_by_title', book_id=book._id) }}">
+        <div class="row">
+            <!-- book title -->
+            <div class="input-field col s12">
+                <i class="fas fa-book prefix teal-text text-accent-4"></i>
+                <input id="title" name="title" value="{{ book.title }}" type="text" class="validate" minlength="5" maxlength="40" required>
+                <label for="title">Book Title</label>
+            </div>
+            <!-- book author -->
+            <div class="input-field col s12">
+                <i class="fas fa-user prefix amber-text text-accent-2"></i>
+                <input id="author" name="author" value="{{ book.author }}" type="text" minlength="5" class="validate" required>
+                <label for="author">Author</label>
+            </div>
+            <!-- ISBN -->
+            <div class="input-field col s12">
+                <i class="fab fa-draft2digital prefix deep-purple-text"></i>
+                <input id="isbn" name="isbn" value="{{ book.isbn }}" type="text" class="validate">
+                <label for="isbn">ISBN</label>
+            </div>
+            <!-- book review -->
+            <div class="input-field col s12">
+                <i class="fas fa-file-alt prefix red-text text-accent-2"></i>
+                <textarea id="review" name="review" type="text" class="materialize-textarea validate"
+                    data-length="250"></textarea>
+                <label for="review">Review</label>
+            </div>
+            <!-- rating selection -->
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <select id="rating" name="rating" class="validate" required>
+                        <option value="" disabled selected>How good is it?</option>
+                        {% for n in range(1,11) %}
+                        <option value="{{n}}">{{n}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="rating">Rating</label>
+                </div>
+            <!-- age group selection -->
+                <div class="input-field col s12 m6">
+                    <select multiple id="age_group" name="age_group" required>
+                        <option value="" disabled>Who is it for?</option>
+                        {% for age in ages %}
+                            {% if age.age_group == book.age or age.age_group == age_group %}
+                                <option value="{{ age.age_group }}" selected> {{ age.age_group }}</option>
+                            {% else %}
+                                <option value="{{ age.age_group }}">{{ age.age_group }}</option>
+                            {% endif %}
+                        {% endfor %}x
+                    </select>
+                    <label for="age_group">Age group</label>
+                </div>
+            </div>
+            <!-- category selection -->
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <select multiple id="category_name" name="category_name">
+                        <option value="" disabled selected>What is it about?</option>
+                        {% for category in categories %}
+                        {% if category.category_name == book.category %}
+                                <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                            {% else %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="category_name">Categories</label>
+                </div>
+            <!-- cover upload -->
+                <div class="input-field col s12 m6">
+                    <i class="fas fa-cloud-upload-alt prefix cyan-text"></i>
+                    <input id="cover" name="cover" type="text" class="validate">
+                    <label for="cover">Paste cover url here</label>
+                </div>
+            </div>
+        </div>
+        <!-- submit button -->
+        <div class="row">
+            <div class="col s12 center-align">
+                <button type="submit" class="btn-large deep-purple">
+                    Add Review <i class="fas fa-plus-square right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
