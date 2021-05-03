@@ -135,6 +135,8 @@ The website was also tested on an IOS (Iphone 10) and Android (Pixel 4) platform
 * display of books and their reviews (book_reviews.html) had some flaws;
 * login and register buttons in the unauthorised_error.html were too big;
 * profile.html wasn't nicely formatted;
+* display of searched books had covers inlined to right;
+* social meadia icons were not properly displayed in Safari, while being nice in Chrome;
 
 
 ## How To Run This Project Locally
