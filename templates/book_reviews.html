@@ -25,10 +25,10 @@
             {% endif %}
             {% endfor %}</p>
     </div>
-</div>
-<a href="{{ url_for('add_review_by_title', book_id=book._id) }}" id="sticky_button"
-    class="btn-floating btn-large pulse waves-effect waves-light deep-purple">
+    <a href="{{ url_for('add_review_by_title', book_id=book._id) }}"
+    class="btn-floating btn-large pulse waves-effect waves-light deep-purple right">
     <i class="fas fa-plus"></i></a>
+</div>
 
 {% for rev in reviews %}
 <div class="divider"></div>
