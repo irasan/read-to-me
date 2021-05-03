@@ -16,7 +16,9 @@
         <p> ISBN: {{ book.isbn }} <br>
             Categories: {% for item in book.category %}
             <span>{{ item }} &middot </span>
-            {% endfor %}</p>
+            {% endfor %}<br>
+        Age group(s): {% for item in book.age %}
+            <span>{{ item }} &middot </span>{% endfor %}</p>
     </div>
     <div class="col s2 m1">
         <p>Rating: {% for item in ratings %}

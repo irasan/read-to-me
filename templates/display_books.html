@@ -8,9 +8,9 @@
 <div class="section row">
     <div id="cover" class="col s10 m2">
         {% if book.cover|length %}
-        <img src="{{ book.cover }}" alt="book_cover">
+        <img class="responsive-img" src="{{ book.cover }}" alt="book_cover">
         {% else %}
-        <img src="../static/images/book-colored.png" alt="book_cover">
+        <img class="responsive-img" src="../static/images/book-colored.png" alt="book_cover">
         {% endif %}
     </div>
     <div class="col s12 m9">
