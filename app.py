@@ -123,10 +123,6 @@ def display_books(age_group):
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-
     if "user" in session:
         if session["user"] == username:
             revs = mongo.db.reviews.find({"created_by": username})
