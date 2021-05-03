@@ -112,3 +112,7 @@ body {
     margin-left: 0.5rem;
     float: right;
 }
+
+.material-tooltip {
+    background-color: #0097a7;
+}

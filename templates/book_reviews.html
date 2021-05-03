@@ -28,7 +28,8 @@
             {% endfor %}</p>
     </div>
     <a href="{{ url_for('add_review_by_title', book_id=book._id) }}"
-    class="btn-floating btn-large pulse waves-effect waves-light deep-purple right">
+    class="btn-floating btn-large tooltipped pulse waves-effect waves-light deep-purple right"
+    data-position="bottom" data-tooltip="Add a review">
     <i class="fas fa-plus"></i></a>
 </div>
 
