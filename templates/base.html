@@ -28,7 +28,7 @@
             <div class="nav-wrapper">
                 <div class="row">
                     <div class="col s2 m1">
-                        <a href="{{ url_for('home') }}" class="brand-logo" id="logo">Read to me</a>
+                        <a href="{{ url_for('home') }}" class="brand-logo fun-text" id="logo">Read to me</a>
                         <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i
                                 class="fas fa-bars"></i></a>
                     </div>
@@ -49,7 +49,8 @@
                             <!-- <li><a class="flow-text" href="{{ url_for('home') }}">Home</a></li> -->
                             {% if session.user %}
                             <li><a class="flow-text" href="{{ url_for('add_review') }}">Add Review</a></li>
-                            <li><a class="flow-text" href="{{ url_for('profile', username=session['user']) }}">My Reviews</a></li>
+                            <li><a class="flow-text" href="{{ url_for('profile', username=session['user']) }}">My
+                                    Reviews</a></li>
                             {% if session.user|lower == "admin"|lower %}
                             <li><a class="flow-text" href="{{ url_for('get_categories') }}">Categories</a></li>
                             {% endif %}
@@ -103,6 +104,50 @@
         {% block content %}
         {% endblock %}
     </main>
+
+    <footer class="page-footer amber accent-2">
+        <div class="row">
+            <div class="col l6 offset-l1 s12">
+                <h5 class="teal-text text-accent-4 fun-text">About</h5>
+                <p class="deep-purple-text">This website was created by Iryna Sanzhara, a mum of two, who loves spending
+                    nights reading and who is now
+                    certain that books that are beloved by adults are not necessarily fun for kids. Hopefully, with the
+                    help of this website you'll be
+                    able to find books to be enjoyed by or together with your little ones.
+
+                </p>
+            </div>
+            <div class="col l3 offset-l2 s12">
+                <h5 class="teal-text text-accent-4 fun-text">Popular Links</h5>
+                <ul>
+                    <li><a class="deep-purple-text" href="{{ url_for('home') }}">Home</a></li>
+                    <li><a class="deep-purple-text"
+                            href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+                    <li><a class="deep-purple-text" href="{{ url_for('register') }}">Create an account</a></li>
+                    <li><a class="deep-purple-text" href="{{ url_for('login') }}">Login</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-copyright cyan darken-1">
+            <div class="container row valign-wrapper" id="footer-copy">
+                <div class="col s12 m8">
+                    © 2021 Copyright Irasan
+                </div>
+                <div class="col s12 m4 footer-icons">
+                    <a class="grey-text text-lighten-4 right" href="https://www.facebook.com">
+                        <i class="fab fa-facebook-square"></i>
+                    </a>
+                    <a class="grey-text text-lighten-4 right" href="https://www.youtube.com">
+                        <i class="fab fa-youtube-square"></i>
+                    </a>
+                    <a class="grey-text text-lighten-4 right" href="https://www.twitter.com">
+                        <i class="fab fa-twitter-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
