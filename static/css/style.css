@@ -46,8 +46,7 @@ body {
 }
 
 #cover img {
-    height: 180px;
-    float: right;
+    float: center;
 }
 
 .nav-wrapper .input-field input[type=search] {

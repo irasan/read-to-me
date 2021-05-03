@@ -7,11 +7,11 @@
 {% for book in books %}
 <div class="divider"></div>
 <div class="row section">
-    <div id="cover" class="col s12 m2">
+    <div id="cover" class="col s10 offset-s1 m2 center-align">
         {% if book.cover|length %}
-        <img src="{{ book.cover }}" alt="book_cover">
+        <img class="responsive-img" src="{{ book.cover }}" alt="book_cover">
         {% else %}
-        <img src="../static/images/book-colored.png" alt="book_cover">
+        <img class="responsive-img" src="../static/images/book-colored.png" alt="book_cover">
         {% endif %}
     </div>
 
