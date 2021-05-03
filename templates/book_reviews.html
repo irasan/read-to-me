@@ -39,15 +39,15 @@
     </div>
     <div class="col s2 m2 offset-1 center-align">
         {% if rev.rating|int < 3 %}
-        <img class="responsive-img smiley" src="../static/images/unhappy.png" alt="sad_face">
-        {% elif rev.rating|int < 5 %}
         <img class="responsive-img smiley" src="../static/images/disappointed.png" alt="disappointed_face">
+        {% elif rev.rating|int < 5 %}
+        <img class="responsive-img smiley" src="../static/images/sad.png" alt="sad_face">
         {% elif rev.rating|int < 7 %}
         <img class="responsive-img smiley" src="../static/images/neutral.png" alt="neutral_face">
         {% elif rev.rating|int < 9 %}
-        <img class="responsive-img smiley" src="../static/images/happy.png" alt="neutral_face">
+        <img class="responsive-img smiley" src="../static/images/happy.png" alt="happy">
         {% else %}
-        <img class="responsive-img smiley" src="../static/images/very-happy.png" alt="very_happy_face">
+        <img class="responsive-img smiley" src="../static/images/in-love.png" alt="in_love_face">
         {% endif  %}
     </div>
 </div>

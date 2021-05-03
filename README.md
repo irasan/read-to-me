@@ -54,7 +54,7 @@ As a reading child I want:
 * to share my feedback on books and be able to read feedback of other children.
 
 ### Wireframes
-After thorough consideration of users' and developer's goals, the following [wireframes](assets/wireframes) were created. 
+After thorough consideration of users' and developer's goals, the following [wireframes](static/images/wireframes) were created. 
 
 ### Design Choices
 The overall feel of the website is simple, happy, and inviting. The following design choices were made in order to implement the game: 
@@ -71,9 +71,9 @@ Smiley faces for different ratings were downloaded from [here:](https://freeicon
 
 #### Colors and Styling
 Color palette for this project was created using [Coolors.co](https://coolors.co) service.
-It is recommended to choose bold and bright colors for children. Keeping in mind gender neutrality, the following 
-[colors](https://coolors.co/ff6b6b-60d394-ffd166-118ab2-fff5eb-6a4c93) were picked
-for the project.
+It is recommended to choose bold and bright colors for children. Keeping in mind gender neutrality, the following were picked
+for the project:
+![color pallette](https://github.com/irasan/read-to-me/blob/master/static/images/read-to-me-colors.png)
 During implementation of the project, in order to simplify it, all colors except the main background color were picked from those
 available on [Materialize.](https://materializecss.com/color.html)
 
