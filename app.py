@@ -266,8 +266,9 @@ def add_review_by_age(age_group):
                 {"title": request.form.get("title")})
         categories = list(mongo.db.categories.find().sort("category_name", 1))
         ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+        result = {}
         return render_template(
-            "add_review.html", book=book, categories=categories, ages=ages, age_group=age_group)
+            "add_review.html", book=book, categories=categories, ages=ages, age_group=age_group, result=result)
 
     return render_template("unauthorised_error.html")
 
