@@ -180,13 +180,6 @@ def add_review():
             book_id = mongo.db.books.find_one(
                 {"title": request.form.get("title").lower()})["_id"]
 
-            # create document for covers collection
-            cover = {
-                "cover": request.form.get("cover"),
-                "book_id": book_id
-            }
-            mongo.db.covers.insert_one(cover)
-
             # create document for reviews collection
             review = {
                 "review": request.form.get("review"),
@@ -196,6 +189,26 @@ def add_review():
             }
             mongo.db.reviews.insert_one(review)
 
+            # create document for covers collection
+            if not request.form.get("cover").endswith(('jpeg', 'png')):
+                flash("Please enter a valid url!")
+                result = {
+                    "title": request.form.get("title").lower(),
+                    "author": request.form.get("author"),
+                    "isbn": request.form.get("isbn"),
+                    "category": request.form.getlist("category_name"),
+                    "age": request.form.getlist("age_group"),
+                    "review": request.form.get("review"),
+                    "rating": int(request.form.get("rating"))
+                }
+                return render_template("add_review.html", result=result)
+
+            cover = {
+                    "cover": request.form.get("cover"),
+                    "book_id": book_id
+                }
+            mongo.db.covers.insert_one(cover)
+
             flash("Your Review Was Successfully Added")
             return render_template("home.html")
 
@@ -203,8 +216,9 @@ def add_review():
                 {"title": request.form.get("title")})
         categories = list(mongo.db.categories.find().sort("category_name", 1))
         ages = list(mongo.db.age_groups.find().sort("age_group", 1))
+        result = {}
         return render_template(
-            "add_review.html", book=book, categories=categories, ages=ages)
+            "add_review.html", book=book, categories=categories, ages=ages, result=result)
     return render_template("unauthorised_error.html")
 
 

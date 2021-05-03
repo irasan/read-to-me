@@ -1,4 +1,6 @@
 # Read to me
+![responsive website](https://github.com/irasan/read-to-me/blob/master/static/images/read-me-responsive.png)
+
 This is a web service that allows its users to find the best childrens books, based on reviews and ratings of other users. 
 There are thousands of books out there and while many of them might seem appealing or beautifully illustrated to adults, they are not 
 necessarily insteresting for children. Also people tend to buy books that are famous and popular, leaving a small chance for short run 
@@ -67,15 +69,15 @@ Both fonts were downloaded from [Google Fonts.](https://fonts.google.com/)
 #### Icons
 All icons were chosen for their obvious meaning so that they can be easily understood by everyone. Icons were implemented 
 using [Font Awesome.](https://fontawesome.com/)
-Smiley faces for different ratings were downloaded from [here:](https://freeicons.io/)
+Smiley faces for different ratings were downloaded from [here:](https://www.flaticon.com/packs/classics-2?word=emoji)
 
 #### Colors and Styling
 Color palette for this project was created using [Coolors.co](https://coolors.co) service.
 It is recommended to choose bold and bright colors for children. Keeping in mind gender neutrality, the following were picked
 for the project:
-![color pallette](https://github.com/irasan/read-to-me/blob/master/static/images/read-to-me-colors.png)
+![color pallette](https://github.com/irasan/read-to-me/blob/master/static/images/colors.png)
 During implementation of the project, in order to simplify it, all colors except the main background color were picked from those
-available on [Materialize.](https://materializecss.com/color.html)
+available on [Materialize.](https://materializecss.com/color.html), but closely matching the palette.
 
 Overall design of the website is cheerful, bright, and playful in order to highlight it's purpose and audience.
 
@@ -115,8 +117,8 @@ write the code itself and store it, GitPod and GitHub were used.
 ## Testing
 ### Testing Using Validators
 The website was continuously tested on emulated large and small screens when writing the code. 
-Upon completion of the writing process, developer used [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) and
-[W3C MarkUp Validation Service](https://validator.w3.org/) to check the validity of the code. 
+Upon completion of the writing process, developer used [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/),
+[W3C MarkUp Validation Service](https://validator.w3.org/), and [PEP8 online](http://pep8online.com/) to check the validity of the code. 
 
 ### Client Stories Testing
 Most common path through the website: Home -> Age group -> Book

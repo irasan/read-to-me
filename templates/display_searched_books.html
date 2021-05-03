@@ -20,6 +20,7 @@
             <h5 class="cyan-text text-darken-2" style="text-transform: uppercase;">{{ book.title }} </h5>
         </a>
         <h5> {{ book.author }} </h5>
+        <p>Age: {{ book.age }} </p>
         <p>Categories: {% for item in book.category %}
             <span>{{ item }} &middot </span>
             {% endfor %}
