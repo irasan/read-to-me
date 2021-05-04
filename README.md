@@ -145,6 +145,7 @@ it will have book's title and author's name pre-filled for better user experienc
 in in order to access that page. 
 
 ### Create Account Page
+![registration page](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/registration.png)
 This page features a simple form, where the user can input username and password twice. This form checks if the passwords match 
 each other and if a user with. the same username already exists. If everything's fine a new user is created.
 The form was kept deliberately simple to make better user experiences.
@@ -241,33 +242,96 @@ lots of other fucntionality.
 
 ### Collections Data Structure
 This website relies on 6 different collections in order to make quick searches and data manipulation. 
+For users registration and login, Users collection is used.
+When review on a new book is created, the data entered by users is automatically divided and sent to three different collections:
+Books, Reviews, and Covers. However, if the review is about a book, that already exists in the database,
+new instance of this book won't be created. 
 
 Users collection:
+Username reference is added automatically to each review that is being created.
 ![users collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-user.png)
 
 Books collection:
+Book id value is also stored in Covers and Reviews collections for quick access.
 ![books collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-book.png)
-
-Reviews collection:
-![reviews collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-review.png)
-
-Age collection:
-![age collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-age.png)
-
-Categories collection:
-![categories collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-category.png)
 
 Covers collection:
 ![covers collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-cover.png)
 
+Reviews collection:
+This collection stores references to Books and Users collections.
+![reviews collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-review.png)
+
+Age collection:
+A list of age groups for easy display and refencing.
+![age collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-age.png)
+
+Categories collection:
+A list fo all book categories. 
+![categories collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-category.png)
+
+
 ## Testing
 ### Testing Using Validators
-The website was continuously tested on emulated large and small screens when writing the code. 
 Upon completion of the writing process, developer used [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/),
 [W3C MarkUp Validation Service](https://validator.w3.org/), and [PEP8 online](http://pep8online.com/) to check the validity of the code. 
 
+### Manual Testing
+The website was continuously tested on emulated large and small screens when writing the code. 
+Manual testing was used to test navigation, responsiveness on different screen sizes, database operations 
+(Create, Read, Update and Delete) and application functions.
+
 ### Client Stories Testing
-Most common path through the website: Home -> Age group -> Book
+Common paths through the website: 
+Home -> Age group -> Book Reviews
+Home -> Login -> Add Review
+Home -> Search -> Book Reviews
+Navigation on the website is intuitive and straightforward.
+
+As a young parent/grandparent, I want to cultivate love to books and promote reading for my kids, 
+that's why I need to find the best books:
+* users can find books by age group and interests, e.g. cars and trucks or animals;
+* users can see ratings and reviews of other users and make decision if the book is worth reading.
+
+As a young parent/grandparent, I want to buy books that are loved by modern children and are not simply a tribute 
+to traditions or well marketed:
+* users can share their honest thoughts about books and experience their kids had with those book;
+* if community of users if big enough, the collection of books and reviews on the website will be big and diverse.
+
+As a young parent/grandparent, I want to share my thoughts about books that were read to my children and help 
+other parents to make a decision:
+* users can register their profiles and share their book reviews;
+* if users change their opinion on certain books, they can easily update their reviews.
+
+As a reading child I want to make use of a service like [goodreads.com](https://www.goodreads.com/) only specifically 
+aimed for children:
+* this website is family friendly and can be used by children by themselves or together with their caregivers;
+* there are a lot of book recommendation sites, but most of the reviews there are written by adults from the point 
+of view of an adult. However, this website is aimed to serve needs of children.
+
+
+#### Test cases
+Here's a list of some test cases that were done (a small part of them):
+1. New user can register an account with unique username - Pass;
+1. New user cannot register an account with a username that already exists in the database - Pass;
+1. Registered users can login using their credentials - Pass;
+1. Access to restricted pages through direct url should be denied - Pass;
+1. User can add review on a new book (that doesn't exist in the database yet) - Pass;
+1. User can add review on a book displayed on the website without creating a new book instance in the database - Pass;
+1. Users can delete their reviews with a prompt for confirmation - Pass;
+1. Users can update their reviews without creating a new instances for reviews and/or books and/or covers - Pass;
+1. Books are displayed in the appropriate age groups - Pass;
+1. Books on Book reviews page are displayed with correct age, categories, and average rating;
+1. Book reviews are displayed with appropriate emoji - Pass;
+1. Average book rating is properly calculated and displayed with 1 digit after the decimal point - Pass;
+1. Full text search by book title, author's name and categories is functioning - Pass; 
+1. All links are valid and redirect to the proper page - Pass;
+1. Add review buttons have tooltips and redirect to the proper page - Pass;
+1. Add review button clicked on Book reviews page redirects to the form with pre-filled book's title and author's name - Pass;
+1. Add review button clicked on Home page redirects to the form with pre-filled book's age group - Pass;
+1. Edit review form has pre-filled values (book's title, author's name, rating, and review) - Pass;
+1. Admin user can manage categories - add, update, and delete - Pass.
+
 
 ### Testing on Different Browsers and Devices
 The website was tested and proved to be issue-free on the following browsers:
@@ -282,7 +346,8 @@ The website was also tested on an IOS (Iphone 10) and Android (Pixel 4) platform
 * login and register buttons in the unauthorised_error.html were too big;
 * profile.html wasn't nicely formatted;
 * display of searched books had covers inlined to right;
-* social meadia icons were not properly displayed in Safari, while being nice in Chrome;
+* social meadia icons were not properly displayed in Safari, while being nice in Chrome.
+All issues stated above were addressed and fixed.
 
 
 ## How To Run This Project Locally
@@ -332,7 +397,11 @@ However, combining two dictionaries into one was done using new functionality of
 [here](https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression-taking-union-of-dictiona) 
 Styling of search field in the navbar was inspired by this [post:]
 (https://stackoverflow.com/questions/42126743/aligning-search-input-in-navbar-with-materialize)
-Custom error page handling was taken from [Flask documentation:] (https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
-Don't allow inputs that start with [white spaces:](https://stackoverflow.com/questions/54020591/not-allow-space-as-a-first-input-character-in-input-field)
-Display confirm messages for delete buttons [here:](https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete)
-Nicely formatted rows in collapsible [here:](https://github.com/Dogfalo/materialize/issues/3325)
+Custom error page handling was taken from [Flask documentation:](https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
+Functionality to deny inputs that start with [white spaces:](https://stackoverflow.com/questions/54020591/not-allow-space-as-a-first-input-character-in-input-field)
+Display confirm messages for delete buttons was inspired by [this:](https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete)
+Nicely formatted rows in collapsible on Profile page were taken from [here:](https://github.com/Dogfalo/materialize/issues/3325)
+
+This project was initially based on the Code Institute task manager mini project on the Backend Development module, 
+but the end result has been heavily modified. 
+
