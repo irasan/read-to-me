@@ -15,10 +15,10 @@
         <h5 class="cyan-text text-darken-2"> {{ book.author }}</h5>
         <p> ISBN: {{ book.isbn }} <br>
             Categories: {% for item in book.category %}
-            <span>{{ item }} &middot </span>
+            <span>{{ item }} &middot; </span>
             {% endfor %}<br>
         Age group(s): {% for item in book.age %}
-            <span>{{ item }} &middot </span>{% endfor %}</p>
+            <span>{{ item }} &middot; </span>{% endfor %}</p>
     </div>
     <div class="col s2 m1">
         <p>Rating: {% for item in ratings %}
@@ -37,7 +37,7 @@
 <div class="divider"></div>
 <div class="section row valign-wrapper">
     <div class="col s10 m10">
-        <h6 class="red-text text-accent-2"> {{ rev.created_by }} rated it with &#9734 {{ rev.rating }} &#9734</h6>
+        <h6 class="red-text text-accent-2"> {{ rev.created_by }} rated it with &#9734; {{ rev.rating }} &#9734</h6>
         <p> {{ rev.review }} </p>
     </div>
     <div class="col s2 m2 offset-1 center-align">

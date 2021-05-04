@@ -30,6 +30,7 @@
     <div class="col s1">
         Rating: {% for item in ratings %}
         {% if item._id == book._id %}
+        <!-- format average rating to 1 digit after the decimal point -->
         {{ "%.1f"|format(item.average) }}
         {% endif %}
         {% endfor %}

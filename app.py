@@ -23,7 +23,7 @@ mongo = PyMongo(app)
 def home():
     return render_template("home.html")
 
-
+# search on small screens
 @app.route("/search_template")
 def search_template():
     return render_template("search.html")
@@ -104,9 +104,12 @@ def login():
     return render_template("login.html")
 
 
+# Books in particular age groups - according to selection on Home page
 @app.route("/display_books/<age_group>")
 def display_books(age_group):
     books = list(mongo.db.books.find({"age": age_group}))
+
+    # calculate average rating
     ratings = list(mongo.db.reviews.aggregate(
         [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
 
@@ -185,7 +188,8 @@ def add_review():
             }
             mongo.db.reviews.insert_one(review)
 
-            # create document for covers collection
+            # check if cover url is preperly formatted
+            # if not - reload the page but save user's inputs
             if not request.form.get("cover").endswith(('jpeg', 'png')):
                 flash("Please enter a valid url!")
                 result = {
@@ -199,6 +203,7 @@ def add_review():
                 }
                 return render_template("add_review.html", result=result)
 
+            # create document for covers collection
             cover = {
                     "cover": request.form.get("cover"),
                     "book_id": book_id
@@ -218,6 +223,7 @@ def add_review():
     return render_template("unauthorised_error.html")
 
 
+# if users click floating button by the age group on Home page
 @app.route("/add_review/<age_group>", methods=["GET", "POST"])
 def add_review_by_age(age_group):
     if "user" in session:
@@ -273,12 +279,14 @@ def add_review_by_age(age_group):
     return render_template("unauthorised_error.html")
 
 
+# if users click on floating button by the book on book_reviews.html
 @app.route("/add_review_by_title/<book_id>", methods=["GET", "POST"])
 def add_review_by_title(book_id):
     if "user" in session:
         book = mongo.db.books.find_one(
                 {"_id": ObjectId(book_id)})
 
+        # create document for books collection
         if request.method == "POST":
             updated_book = {
                 "title": book["title"],
@@ -446,13 +454,17 @@ def delete_category(category_id):
     return render_template("unauthorised_error.html")
 
 
+# display of a particular book with it's reviews underneath
 @app.route("/book_reviews/<book_id>")
 def book_reviews(book_id):
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
     cover = mongo.db.covers.find_one({"book_id": ObjectId(book_id)})
+    # add cover url to the book dictionary
     if cover is not None:
         book["cover"] = cover["cover"]
     reviews = mongo.db.reviews.find({"book_id": ObjectId(book_id)})
+
+    # calculate average rating
     ratings = list(mongo.db.reviews.aggregate(
         [{'$group': {'_id': '$book_id', 'average': {'$avg': '$rating'}}}]))
 

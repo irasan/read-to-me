@@ -7,6 +7,7 @@ body {
     font-size: 1.4rem;
 }
 
+/* logo and headings in footer */
 .fun-text{
     font-family: 'Gloria Hallelujah', serif;
     margin-left: 10px;
@@ -28,6 +29,7 @@ body {
     right: 0;
 }
 
+/* make font size bigger on small screens */
 .sidenav li>a {
     font-size: 1.5rem;
 }
@@ -48,12 +50,9 @@ body {
     color: #FFF5EB;
 }
 
-#cover img {
-    float: center;
-}
-
+/* search in navbar */
 .nav-wrapper .input-field input[type=search] {
-     height: 44px;
+    height: 44px;
     color: #FFF5EB;
     border: 1px solid #FFF5EB;
     margin-top: 8px;
@@ -98,6 +97,7 @@ body {
     }
 }
 
+/* margin between buttons */
 .btn-small {
     margin-top: 10px;
 }

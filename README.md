@@ -275,6 +275,9 @@ A list fo all book categories.
 ### Testing Using Validators
 Upon completion of the writing process, developer used [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/),
 [W3C MarkUp Validation Service](https://validator.w3.org/), and [PEP8 online](http://pep8online.com/) to check the validity of the code. 
+![CSS validation](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/css-validated.png)
+![JS validation](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/js.png)
+![PEP8 validation](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/pep8.png)
 
 ### Manual Testing
 The website was continuously tested on emulated large and small screens when writing the code. 
@@ -379,7 +382,8 @@ To work on the project code within the local IDE:
 To run this project, you will need the following to be installed:
 1. [pip](https://pypi.org/project/pip/)
 1. [Python3](https://realpython.com/installing-python/)
-1. an [account at MongoDB Atlas](https://docs.mongodb.com/guides/cloud/account/) or MongoDB running locally on your machine.
+1. [account at MongoDB Atlas](https://docs.mongodb.com/guides/cloud/account/) or MongoDB running locally on your machine.
+When database is created, insert that "MONGO_URI" in to the config vars.
 
 ## Credits
 ### Images
@@ -388,18 +392,26 @@ Images for the website were downloaded from [Pexels.](https://www.pexels.com/)
 ### Borrowed Code 
 Code for Materialize components, such as buttons, layout, colors, styling etc was taken from 
 [Materialize documentation](https://materializecss.com/about.html).
+
 [Stack Overflow website](https://stackoverflow.com/), [W3School tutorials](https://www.w3schools.com/), 
 [Slack](https://code-institute-room.slack.com/ssb/redirect?entry_point=homepage_nav) forum, and tutor support
 were used when dealing with some specific issues. In particular:
+
 Code for reading data from different collections in MongoDB to create a dictionary of user's reviews was peeked 
 [here](https://stackoverflow.com/questions/16849955/how-can-i-join-data-from-two-mongodb-collections-in-python)
+
 However, combining two dictionaries into one was done using new functionality of Python, as seen 
 [here](https://stackoverflow.com/questions/38987/how-do-i-merge-two-dictionaries-in-a-single-expression-taking-union-of-dictiona) 
+
 Styling of search field in the navbar was inspired by this [post:]
 (https://stackoverflow.com/questions/42126743/aligning-search-input-in-navbar-with-materialize)
+
 Custom error page handling was taken from [Flask documentation:](https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/)
+
 Functionality to deny inputs that start with [white spaces:](https://stackoverflow.com/questions/54020591/not-allow-space-as-a-first-input-character-in-input-field)
+
 Display confirm messages for delete buttons was inspired by [this:](https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete)
+
 Nicely formatted rows in collapsible on Profile page were taken from [here:](https://github.com/Dogfalo/materialize/issues/3325)
 
 This project was initially based on the Code Institute task manager mini project on the Backend Development module, 

@@ -29,8 +29,8 @@
             <!-- book review -->
             <div class="input-field col s12">
                 <i class="fas fa-file-alt prefix red-text text-accent-2"></i>
-                <textarea id="review" name="review" value="{{ result.review }}" type="text" class="materialize-textarea validate"
-                    data-length="250"></textarea>
+                <textarea id="review" name="review" value="{{ result.review }}" type="text"
+                    class="materialize-textarea validate" data-length="250"></textarea>
                 <label for="review">Review</label>
             </div>
             <!-- rating selection -->
@@ -40,9 +40,9 @@
                         <option value="" disabled selected>How good is it?</option>
                         {% for n in range(1,11) %}
                         {% if n == result.rating %}
-                            <option value="{{n}}" selected>{{n}}</option>
+                        <option value="{{n}}" selected>{{n}}</option>
                         {% else %}
-                            <option value="{{n}}">{{n}}</option>
+                        <option value="{{n}}">{{n}}</option>
                         {% endif %}
                         {% endfor %}
                     </select>
@@ -51,7 +51,7 @@
                 <!-- age group selection -->
                 <div class="input-field col s12 m6">
                     <select multiple id="age_group" name="age_group" required>
-                        <option value="" disabled >Who is it for?</option>
+                        <option value="" disabled>Who is it for?</option>
                         {% for age in ages %}
                         {% if age.age_group == age_group %}
                         <option value="{{ age.age_group }}" selected> {{ age.age_group }}</option>
