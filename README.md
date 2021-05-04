@@ -1,5 +1,5 @@
 # Read to me
-![responsive website](https://github.com/irasan/read-to-me/blob/master/static/images/read-me-responsive.png)
+![responsive website](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/read-me-responsive.png)
 
 This is a web service that allows its users to find the best childrens books, based on reviews and ratings of other users. 
 There are thousands of books out there and while many of them might seem appealing or beautifully illustrated to adults, they are not 
@@ -115,7 +115,7 @@ button from the home page (choosing an age group) or book page (in order to leav
 will be pre-filled automatically with the key values (age, book title or book author).
 
 ### Home page
-![home page](https://github.com/irasan/read-to-me/blob/master/static/images/read-me-responsive.png)
+![home page](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/read-me-responsive.png)
 
 Home page displays 4 cards for books in different age groups. These are:
 1. 0-2 years old: here users will find books with no or very little text as well as first nursery rhymes;
@@ -128,14 +128,14 @@ text, not the illustrations;
 By clickign on any of the age group, a user will be redirected to the next page displaying all books in that particular category.
 
 ### Display of books
-![books display page](https://github.com/irasan/read-to-me/blob/master/static/images/display-books.png)
+![books display page](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/display-books.png)
 
 This page features all books in a certain age group. Every book has a cover picture, it's title, author, categories, and average
 rating. This average rating is based on all reviews that were left on each particular book. Titles are clickable and will direct user
 to the book reviews page.
 
 ### Book reviews page
-![book reviews page](https://github.com/irasan/read-to-me/blob/master/static/images/book-reviews.png)
+![book reviews page](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/book-reviews.png)
 This page displays a book with all it's reviews. It can be accessed from books display page or search results. 
 At the top users will find book's cover, it's title, author's name, ISBN, age, categories, and average rating. 
 Underneath there's a list of reviews left by users. There's a mention of the user who left that reviews and besides there's an emoji
@@ -234,6 +234,31 @@ to access a page that requires registration.
 * [Jinja](https://jinja.palletsprojects.com/) to simplify displaying data from the backend of this project smoothly and effectively in html;
 * [Materialize](https://materializecss.com/) to simplify the structure of the website and make the website responsive easily.
 
+## Information Architecture
+### Database Choice
+MongoDB was chosen for storing data for this project. It's NoSQL document-based database that allows quick and easy search and 
+lots of other fucntionality.
+
+### Collections Data Structure
+This website relies on 6 different collections in order to make quick searches and data manipulation. 
+
+Users collection:
+![users collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-user.png)
+
+Books collection:
+![books collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-book.png)
+
+Reviews collection:
+![reviews collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-review.png)
+
+Age collection:
+![age collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-age.png)
+
+Categories collection:
+![categories collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-category.png)
+
+Covers collection:
+![covers collection](https://github.com/irasan/read-to-me/blob/master/assets/readme-images/db-cover.png)
 
 ## Testing
 ### Testing Using Validators
